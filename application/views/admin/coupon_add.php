@@ -11,14 +11,10 @@ if($coupanDisAry){
 	$uses_customer  = $coupanDisAry[ 0 ]->uses_customer ;
 	$status 		= $coupanDisAry[ 0 ]->status;
 	
-	$groupList = $categList = $productList =  '';
-	
+	$groupList = $categList = $productList =  '';	
 	$typeLbl		= 'Update';
 	$linkTopBrod 	= $name;
-	$lngk 			= 'edit';
-	
-	
-	
+	$lngk 			= 'edit';	
 }else{
 	$name = $code = $type = $discount = $total = $date_start = $date_end = $uses_total = $uses_customer = $groupList = $categList = $productList =  '';
 	$typeLbl 		= 'Create';
@@ -28,28 +24,19 @@ if($coupanDisAry){
 
 }
 
-	foreach($groupAry as $groupData){
-		if(in_array($groupData->id,$groupIds)){
-			$groupList .= '<option selected="selected" value="'.$groupData->id.'">'.$groupData->name.'</option>';
-		}else{
-			$groupList .= '<option value="'.$groupData->id.'">'.$groupData->name.'</option>';
-		}	
-	
+foreach($groupAry as $groupData){
+	if(in_array($groupData->id,$groupIds)){
+		$groupList .= '<option selected="selected" value="'.$groupData->id.'">'.$groupData->name.'</option>';
+	}else{
+		$groupList .= '<option value="'.$groupData->id.'">'.$groupData->name.'</option>';
 	}
-/*	foreach($productAry as $productData){
-		if(in_array($productData->fld_product_id,$prdctIds)){
-			$productList .= '<option selected="selected" value="'.$productData->fld_product_id.'">'.$productData->fld_name.'</option>';
-		}else{
-			$productList .= '<option value="'.$productData->fld_product_id.'">'.$productData->fld_name.'</option>';
-		}
-	}
-*/
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<?php include('includes/commonfile.php');?>
-	<title>Manage Coupon | POCHI Admin</title>
+	<title>Manage Coupon | Admin</title>
 	<link href="<?=$iURL_assets?>admin/js/dropify/dist/css/dropify.min.css" rel="stylesheet" type="text/css"/>
 	<?php include('includes/styles.php'); ?>
 </head>
