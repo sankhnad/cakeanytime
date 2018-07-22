@@ -17,7 +17,7 @@
 
 <head>
 	<?php include('includes/commonfile.php');?>
-	<title>Group Detail | POCHI Admin</title>
+	<title>Group Detail | Admin</title>
 	<?php include('includes/styles.php'); ?>
 </head>
 
