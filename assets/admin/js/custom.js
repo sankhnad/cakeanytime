@@ -2985,7 +2985,7 @@ function generateURLSlug(val, type) {
 	if (type == 'cat') {
 		urlVal = base_url + "admin/category/generateURLSlug";
 	} else if (type == 'prd') {
-		urlVal = base_url + "admin/product/generateURLSlug";
+		urlVal = base_url + "admin/products/generateURLSlug";
 	}
 	$.ajax({
 		url: urlVal,
@@ -3008,3 +3008,41 @@ function generateURLSlug(val, type) {
 		},
 	});
 }
+function clonePricingProduct(type, selfObj){
+	if(type){
+		$('.spacalPriceW').append('<li>'+$('.priceClass').html()+'</li>');
+	}else{
+		$(selfObj).closest('li').remove();
+	}
+	if($('.spacalPriceW li').length <= 0){
+		clonePricingProduct(1);
+	}
+}
+
+$(document).on("submit", "#editNewProduct", function (e) {
+	e.preventDefault();
+	var id = $('input[name="pid"]').val();
+	if (id != '') {
+		var msg = 'updated';
+	} else {
+		var msg = 'added';
+	}
+	$.ajax({
+		url: base_url + 'admin/products/storeProduct',
+		dataType: 'json',
+		type: 'POST',
+		data: new FormData(this),
+		processData: false,
+		contentType: false,
+		success: function (data) {
+			if (data.status == 'slug_error') {
+				swal("Sorry!", "This product name is not available, choose a different productname.", "error");
+			} else {
+				timerAlert('Successful!!', 'Product has been successfully ' + msg, base_url + 'admin/products');
+			}
+		},
+		error: function () {
+			csrfError();
+		}
+	});
+});

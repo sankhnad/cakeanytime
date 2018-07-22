@@ -17836,3 +17836,21 @@ table.fixTblShort thead .sorting::after, table.fixTblShort thead .sorting_asc::a
 .datepicker > div {
   display: inline;
 }
+
+.spacalPriceW{
+	display: inline-block;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+.spacalPriceW > li{
+	display: inline-block;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	position: relative;
+}
+.spacalPriceW .form-group{
+	margin-bottom: 15px;
+}
