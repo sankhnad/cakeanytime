@@ -3,7 +3,7 @@
 
 <head>
 	<?php include('includes/commonfile.php');?>
-	<title>Vendors List | POCHI Admin</title>
+	<title>Product List | Admin</title>
 	<?php include('includes/styles.php'); ?>
 </head>
 
@@ -17,11 +17,12 @@
 					<ul class="breadcrumb">
 						<li>
 							<i class="ace-icon fa fa-home home-icon"></i>
-							<a href="<?=admin_url()?>">Home</a>
+							<a href="<?=base_url()?>">Home</a>
 						</li>
-						<li class="active">
-							<a href="<?=admin_url()?>vendors">Vendors</a>
+						<li>
+							<a href="<?=base_url()?>products">Products</a>
 						</li>
+						<li class="active">Products List</li>
 					</ul>
 					<!-- /.breadcrumb -->
 					<div class="nav-search">
@@ -33,15 +34,27 @@
 					<div class="row">
 						<div class="col-xs-12">
 							<div class="headPageA">
-								<div class="titleAre"><i class="far fa-id-card"></i> Vendors List</div>
+								<div class="titleAre"><i class="fas fa-users"></i> Manage Products</div>
 								<div class="buttonAre">
-									<a class="btn btn-primary" href="<?=admin_url()?>vendors/add"><i class="ace-icon fas fa-user-plus bigger-110"></i> Add New Vendor</i></a>
+									<a href="javascript:;" data-toggle="modal" data-target="#addCustomr" class="btn btn-primary"><i class="ace-icon fas fa-user-plus bigger-110"></i> Add New Product</a>
 								</div>
 							</div>
 							<div class="hr dotted hr-double"></div>
 
 							<div class="filterPageare">
-
+								<div class="filterPanL">
+									<select class="selectpicker filter_type" title="Select Profile Type" data-live-search="true" data-width="fit" data-selected-text-format="count" data-size="5" multiple data-actions-box="true">
+										<option value="I">Individual</option>
+										<option value="C">Corporate</option>
+									</select>
+								</div>
+								<div class="filterPanL">
+									<select class="selectpicker filter_kyc" title="Select KYC Status" data-live-search="true" data-width="fit" data-selected-text-format="count" data-size="5" multiple data-actions-box="true">
+										<option value="2">Pending</option>
+										<option value="1">Verified</option>
+										<option value="0">Rejected</option>
+									</select>
+								</div>
 								<div class="filterPanL">
 									<select class="selectpicker filter_status" title="Select Status" data-live-search="true" data-width="fit" data-selected-text-format="count" data-size="5" multiple data-actions-box="true">
 										<option value="1">Active</option>
@@ -55,7 +68,6 @@
 										</span>
 									
 
-
 										<input class="form-control filter_data" placeholder="Reg. Date Range" type="text"/>
 									</div>
 								</div>
@@ -67,10 +79,10 @@
 							<table class="table data_table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
+										<th>POCHI ID</th>
 										<th>Name</th>
-										<th>Email</th>
-										<th>Phone</th>
-										<th>Created On</th>
+										<th>Reg. Date</th>
+										<th>KYC</th>
 										<th>Status</th>
 										<th>Action</th>
 									</tr>
@@ -86,78 +98,51 @@
 		<!-- /.main-content -->
 		<?php include('includes/footer.php')?>
 	</div>
+
 	<!-- /.main-container -->
 
-	<!-- Modal -->
-	<div id="profileQuickView" class="modal fade" role="dialog">
-		<div class="modal-dialog modal-md">
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Quick View</h4>
-				</div>
-				<form class="form-horizontal" id="adminUpdatePas" role="form">
-					<div class="modal-body">
-						<div class="text-center"><img width="20%" class="qUAAvtar" src=""/>
-						</div>
-						<table class="table table-bordered">
-							<tbody>
-								<tr class="qName">
-									<th width="40%">Name</th>
-									<td><span></span>
-									</td>
-								</tr>
-								<tr class="qEmail">
-									<th>Email</th>
-									<td><span></span>
-									</td>
-								</tr>
-								<tr class="qPhone">
-									<th>Phone</th>
-									<td><span></span>
-									</td>
-								</tr>
-								<tr class="qStatus">
-									<th>Status</th>
-									<td><span></span>
-									</td>
-								</tr>
-								<tr class="qCreated">
-									<th>Created On</th>
-									<td><span></span>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-sm btn-inverse" data-dismiss="modal"><span class="bigger-110">Close</span></button>
-						<a target="_blank" href="" class="btn btn-sm btn-primary editModb"> <i class="ace-icon fas fa-pencil-alt bigger-110"></i> <span class="bigger-110"> Edit</a>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
+	<?php include('includes/email_sms_template.php')?>
 	<!-- basic scripts -->
 	<?php include('includes/scripts.php')?>
 	<script src="<?=$iURL_assets?>admin/js/custom.js"></script>
 	<script>
+		ajaxPageTarget('data_table', 'customers', 'customers_lst');
+
 		function filterRecord() {
 			filterData = {
-				"filter_date": $( 'input.filter_date' ).val(),
+				"filter_kyc": $( 'select.filter_kyc' ).val(),
 				"filter_status": $( 'select.filter_status' ).val(),
+				"filter_type": $( 'select.filter_type' ).val(),
+				"filter_data": $( 'input.filter_data' ).val(),
 			};
-			ajaxPageTarget( 'data_table', 'vendors', 'vendor_lst' );
+			ajaxPageTarget( 'data_table', 'customers', 'customers_lst' );
 		}
-		filterRecord();
+		$( '.summernote' ).summernote( {
+			height: 200,
+			codemirror: {
+				theme: 'monokai'
+			}
+		} );
+
+		$( '.filter_data' ).daterangepicker( {
+				'applyClass': 'btn-sm btn-success',
+				'cancelClass': 'btn-sm btn-info',
+				'autoUpdateInput': false,
+				locale: {
+					applyLabel: 'Apply',
+					cancelLabel: 'Clear'
+				}
+			} )
+			.prev().on( ace.click_event, function () {
+				$( this ).next().focus();
+			} );
+		$( '.filter_data' ).on( 'apply.daterangepicker', function ( ev, picker ) {
+			$( this ).val( picker.startDate.format( 'MM/DD/YYYY' ) + ' - ' + picker.endDate.format( 'MM/DD/YYYY' ) );
+		} );
+		$( '.filter_data' ).on( 'cancel.daterangepicker', function ( ev, picker ) {
+			$( this ).val( '' );
+		} );
 	</script>
-	<style>
-		.data_table td:first-child {
-			white-space: nowrap;
-		}
-	</style>
 </body>
 
 </html>

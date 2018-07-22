@@ -426,4 +426,40 @@ if(!function_exists('slugify')){
 	}
 }
 
+if(! function_exists('getProductist')){
+    function getProductist($where) {
+		$CI = & get_instance();
+		$ref = [];
+		$items = [];
+		$productObj = $CI->common_model->getAll('*', 'product', $where, 'sort_order asc');
+		foreach ( $productObj as $productData ) {
+			$thisRef = & $ref[ $productData->product_id ];
+			$thisRef[ 'product_id' ] = $productData->product_id;
+			$thisRef[ 'model' ] = $productData->model;
+			$thisRef[ 'name' ] = $productData->name;
+			$thisRef[ 'url_slug' ] = $productData->url_slug;
+			$thisRef[ 'image' ] = $productData->image;
+			
+			$thisRef[ 'quantity' ] = $productData->quantity;
+			$thisRef[ 'stock_status_id' ] = $productData->stock_status_id;
+			
+			$thisRef[ 'price' ] = $productData->price;
+			$thisRef[ 'date_available' ] = $productData->date_available;
+			$thisRef[ 'weight' ] = $productData->weight;
+			$thisRef[ 'weight_class_id' ] = $productData->weight_class_id;
+			$thisRef[ 'lenght_class_id' ] = $productData->lenght_class_id;
+			$thisRef[ 'length' ] = $productData->length;
+			$thisRef[ 'width' ] = $productData->width;
+			$thisRef[ 'height' ] = $productData->height;
+			$thisRef[ 'description' ] = $productData->description;
+			$thisRef[ 'status' ] = $productData->status;
+			$thisRef[ 'sort_order' ] = $productData->sort_order;
+			
+			$items[ $productData->product_id ] = & $thisRef;
+		}
+		return array($items);
+	}
+}
+
+
 ?>

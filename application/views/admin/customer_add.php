@@ -25,7 +25,7 @@ if ( $customerData ) {
 
 <head>
 	<?php include('includes/commonfile.php');?>
-	<title><?=$lblNew?> Customer</title>
+	<title><?=$lblNew?> Customer | Admin</title>
 	<link href="<?=$iURL_assets?>admin/js/dropify/dist/css/dropify.min.css" rel="stylesheet" type="text/css"/>
 	<?php include('includes/styles.php'); ?>
 </head>
@@ -117,7 +117,7 @@ if ( $customerData ) {
 												<div class="form-group">
 													<label class="col-md-12">Mobile e.g. "9999999999" *</label>
 													<div class="col-md-12">
-														<input onblur="checkCustEmailAvlb(this.value,'mobile')" onkeypress="$('.usernameErr').hide();" type="text" name="mobile" value="<?=$mobile?>" placeholder="Enter Phone Number" data-mask="0000000000" class="form-control" required>
+														<input onBlur="checkCustEmailAvlb(this.value,'mobile')" onKeyPress="$('.usernameErr').hide();" type="text" name="mobile" value="<?=$mobile?>" placeholder="Enter Phone Number" data-mask="0000000000" class="form-control" required>
 														
 														<span class="help-block usernameErr"> This phone is not available </span>
 													</div>

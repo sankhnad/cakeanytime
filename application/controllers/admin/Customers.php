@@ -167,11 +167,11 @@ class Customers extends CI_Controller {
 	
 	
 	function add(){
-		$customerData = $addressList = array();
+		$customerDisAry = $addressList = array();
 		$groupAry = $this->common_model->getAll('id, name, isDefault', 'customer_group', array('status'=>'1', 'isDeleted'=>'1'));
 		$data['stateAry'] = $this->common_model->getAll('sid, stateName', 'location_state', array('status'=>'1', 'isDeleted'=>'1'));
 		$data['addressList'] = $addressList;
-		$data['customerData'] = $customerData;
+		$data['customerData'] = $customerDisAry;
 		$data['groupAry'] = $groupAry;
 		$data['cid'] = '';
 		$data['activeMenu'] = 'customers';

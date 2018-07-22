@@ -282,7 +282,7 @@ class Vendors extends CI_Controller {
 
 			$btnAra = ' <a class="blue" data-tooltip="tooltip" title="Quick View" onClick="vendorQuickView(\'' . $id . '\')" href="javascript:;"> <i class="ace-icon fas fa-search-plus bigger-130"></i></a>';
 
-			$btnAra .= ' <a class="green" data-tooltip="tooltip" title="Edit" href="' . base_url() . 'admin/vendor/edit/' . $id . '"> <i class="ace-icon fas fa-pencil-alt bigger-130"></i> </a>';
+			$btnAra .= ' <a class="green" data-tooltip="tooltip" title="Edit" href="' . base_url() . 'admin/vendors/edit/' . $id . '"> <i class="ace-icon fas fa-pencil-alt bigger-130"></i> </a>';
 
 			$btnAra .= ' <a class="red" data-tooltip="tooltip" title="Delete" onClick="changeStatus(this, \'' . $id . '\', \'delete\', \'vendor\');" href="javascript:;"> <i class="ace-icon far fa-trash-alt bigger-130"></i> </a>';
 
@@ -294,7 +294,7 @@ class Vendors extends CI_Controller {
 				$offLbl = 'Inactive';
 			}
 
-			$status = '<div onClick="changeStatus(this,\'' . $id . '\',\'admin\')" data-state="' . $offLbl . '" class="swithAraBoxBefre"><label class="switchS switchSCuStatus">
+			$status = '<div onClick="changeStatus(this,\'' . $id . '\',\'status\',\'vendor\')" data-state="' . $offLbl . '" class="swithAraBoxBefre"><label class="switchS switchSCuStatus">
 						  <input name="verifiedEmail" value="1" class="switchS-input" type="checkbox" ' . $isActivCheck . ' />
 						  <span class="switchS-label" data-on="Active" data-off="' . $offLbl . '"></span> <span class="switchS-handle"></span> </label></div>';
 
