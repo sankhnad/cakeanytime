@@ -2757,7 +2757,7 @@ $(document).on("submit", "#editNewVendor", function (e) {
 		},
 		success: function (data) {
 			$('input[name="vid"]').val(data.vid);
-			timerAlert('Successfull!', 'Vendor has been successfully '+msg, admin_url+'vendor');
+			timerAlert('Successfull!', 'Vendor has been successfully '+msg, admin_url+'vendors');
 
 		},
 		error: function () {

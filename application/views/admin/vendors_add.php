@@ -70,7 +70,7 @@ if($vendorDisAry){
 <html lang="en">
 <head>
 	<?php include('includes/commonfile.php');?>
-	<title>Manage User | POCHI Admin</title>
+	<title>Create Vendor | POCHI Admin</title>
 	<link href="<?=$iURL_assets?>admin/js/dropify/dist/css/dropify.min.css" rel="stylesheet" type="text/css"/>
 	<?php include('includes/styles.php'); ?>
 </head>
@@ -91,7 +91,7 @@ if($vendorDisAry){
 							Others
 						</li>
 						<li>
-							<a href="<?=base_url()?>admin/vendor">Manage Vendors</a>
+							<a href="<?=base_url()?>admin/vendors">Manage Vendors</a>
 						</li>
 						<li class="active">
 							<a href="<?=base_url()?>others/manage_users/<?=$lngk?>/<?=$vid?>"><?=$linkTopBrod?></a>
@@ -103,9 +103,15 @@ if($vendorDisAry){
 					</div>
 					<!-- /.nav-search -->
 				</div>
+				<div class="page-content">
 				<div class="row">
-					<div class="col-sm-12">
-					  <div class="white-box">
+				
+					<div class="col-xs-12">
+							<div class="headPageA">
+								<div class="titleAre"><i class="fas fa-box-open"></i> <?=$typeLbl?> Vendor</div>
+							</div>
+							<div class="hr dotted hr-double"></div>	
+					 
 						<form class="form-horizontal" id="editNewVendor">
 						  <input type="hidden" value="<?=$vid?>" name="vid"/>
 						  <div class="form-group row">
@@ -255,7 +261,7 @@ if($vendorDisAry){
 														</div>-->
 								<div class="col-sm-12">
 								  <div class="form-group">
-									<div class="col-md-12 text-right"> <a href="<?=admin_url()?>vendor" class="btn btn-inverse waves-effect waves-light">Cancel</a>
+									<div class="col-md-12 text-right"> <a href="<?=admin_url()?>vendors" class="btn btn-inverse waves-effect waves-light">Cancel</a>
 									  <button type="submit" class="btn btn-success waves-effect waves-light"><i class="fa fa-check"></i><?=$typeLbl?>
 									  </button>
 									</div>
@@ -265,10 +271,13 @@ if($vendorDisAry){
 							</div>
 						  </div>
 						</form>
-					  </div>
+					  
 					</div>
      			 </div>
+				 <!-- /.row -->
+				 </div>
 				<!-- /.page-content -->
+				
 			</div>
 		</div>
 		<!-- /.main-content -->

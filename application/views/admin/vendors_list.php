@@ -35,7 +35,7 @@
 							<div class="headPageA">
 								<div class="titleAre"><i class="far fa-id-card"></i> Vendors List</div>
 								<div class="buttonAre">
-									<a class="btn btn-primary" href="<?=admin_url()?>vendor/add"><i class="ace-icon fas fa-user-plus bigger-110"></i> Add New Vendor</i></a>
+									<a class="btn btn-primary" href="<?=admin_url()?>vendors/add"><i class="ace-icon fas fa-user-plus bigger-110"></i> Add New Vendor</i></a>
 								</div>
 							</div>
 							<div class="hr dotted hr-double"></div>
