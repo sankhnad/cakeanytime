@@ -3,7 +3,7 @@
 
 <head>
 	<?php include('includes/commonfile.php');?>
-	<title>Products List | Admin </title>
+	<title>Type List | Admin </title>
 	<?php include('includes/styles.php'); ?>
 </head>
 
@@ -20,7 +20,7 @@
 							<a href="<?=base_url()?>">Home</a>
 						</li>
 						<li class="active">
-							<a href="<?=admin_url()?>products">Products</a>
+							<a href="<?=admin_url()?>type">Type</a>
 						</li>
 					</ul>
 					<!-- /.breadcrumb -->
@@ -33,13 +33,20 @@
 					<div class="row">
 						<div class="col-xs-12">
 							<div class="headPageA">
-								<div class="titleAre"><i class="fas fa-users"></i> Products List</div>
+								<div class="titleAre"><i class="fas fa-users"></i> Type List</div>
 								<div class="buttonAre">
-									<a href="<?=admin_url()?>products/add" class="btn btn-primary"><i class="ace-icon fas fa-plus"></i> Add Product</i></a>
+									<a href="<?=admin_url()?>type/add" class="btn btn-primary"><i class="ace-icon fas fa-plus"></i> Add Type</i></a>
 								</div>
 							</div>
 							<div class="hr dotted hr-double"></div>
 							<div class="filterPageare">
+								<div class="filterPanL">
+									<select class="selectpicker filter_group" data-live-search="true" title="Select Group" data-width="fit" multiple data-actions-box="true">
+										<?php foreach($groupAry as $groupData){?>
+										<option value="<?=$groupData->id?>"><?=$groupData->name?></option>
+										<?php } ?>
+									</select>
+								</div>
 								<div class="filterPanL">
 									<select class="selectpicker filter_status" title="Select Status" data-width="fit" multiple data-actions-box="true">
 										<option value="1">Active</option>
@@ -63,9 +70,7 @@
 								<thead>
 									<tr>
 										<th>Name</th>
-										<th>Model</th>
-										<th>Quentity</th>
-										<th>SKU Code</th>
+										<th>Sort Number</th>
 										<th>Status</th>
 										<th>Action</th>
 									</tr>
@@ -91,7 +96,7 @@
 				"filter_status": $( 'select.filter_status' ).val(),
 				"filter_group": $( 'select.filter_group' ).val(),
 			};
-			ajaxPageTarget('data_table', 'products', 'product_list' );
+			ajaxPageTarget('data_table', 'type', 'type_list' );
 		}
 		filterRecord();
 	</script>

@@ -64,12 +64,16 @@
 					</a>
 					<b class="arrow"></b>
 					<ul class="submenu">
+						<li class="<?=$activeSubMenu == 'type' ? 'active':''?>">
+							<a href="<?=admin_url()?>type"><i class="menu-icon fa fa-caret-right"></i>Product Type</a>
+							<b class="arrow"></b>
+						</li>
 						<li class="<?=$activeSubMenu == 'category' ? 'active':''?>">
 							<a href="<?=admin_url()?>category"><i class="menu-icon fa fa-caret-right"></i>Product Category</a>
 							<b class="arrow"></b>
 						</li>
-						<li class="<?=$activeSubMenu == 'product' ? 'active':''?>">
-							<a href="<?=admin_url()?>customers"><i class="menu-icon fa fa-caret-right"></i>Product List</a>
+						<li class="<?=$activeSubMenu == 'products' ? 'active':''?>">
+							<a href="<?=admin_url()?>products"><i class="menu-icon fa fa-caret-right"></i>Product List</a>
 							<b class="arrow"></b>
 						</li>
 					</ul>

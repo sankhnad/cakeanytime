@@ -252,6 +252,16 @@ class Process extends CI_Controller {
 				$tbleName = 'admin_import_statement_data';
 				$where = array('id'=>$id);
 				break;
+			case 'product':
+				$data['isDeleted'] = '0';
+				$tbleName = 'product';
+				$where = array('product_id'=>$id);
+				break;
+			case 'type':
+				$data['isDeleted'] = '0';
+				$tbleName = 'type';
+				$where = array('type_id'=>$id);
+				break;
 			default:
 				exit;
 		}
@@ -433,6 +443,12 @@ class Process extends CI_Controller {
 		}else if($target == 'coupon'){
 			$tbl = 'coupon';
 			$where = array('cid'=>$id);
+		}else if($target == 'product'){
+			$tbl = 'product';
+			$where = array('product_id'=>$id);
+		}else if($target == 'type'){
+			$tbl = 'type';
+			$where = array('type_id'=>$id);
 		}
 		
 		$this->common_model->updateData($tbl,$where, $data);

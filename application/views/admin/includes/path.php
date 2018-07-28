@@ -7,6 +7,7 @@ $iURL_assets = $this->config->item('default_path')['assets'];
 $iURL_storeAssts = $this->config->item('default_path')['storeAssts'];
 $iURL_adminAssts = $this->config->item('default_path')['adminAssts'];
 $iURL_vendor 	= $this->config->item('default_path')['vendor'];
+$iURL_type 	= $this->config->item('default_path')['type'];
 
 ?>
 <script>

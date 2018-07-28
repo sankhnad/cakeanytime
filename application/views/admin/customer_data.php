@@ -239,7 +239,7 @@ if ( $customerData ) {
 												<div class="form-group">
 													<div class="col-md-12 text-right">
 														<button type="button" class="btn btn-primary pull-left waves-effect waves-light mangAdresBtn <?=$customerData ? '' : 'hide_now'?>" onClick="manageAddressPan()"><i class="fa fa-map-marker"></i> Manage Address</button>
-														<a href="<?=base_url('dashboard/customer')?>" class="btn btn-inverse waves-effect waves-light">Cancel</a>
+														<a href="<?=base_url('admin/customers')?>" class="btn btn-inverse waves-effect waves-light">Cancel</a>
 														<button type="submit" class="btn btn-success waves-effect waves-light"><i class="fa fa-check"></i> <?=$actionBtn?> Customer</button>
 													</div>
 												</div>

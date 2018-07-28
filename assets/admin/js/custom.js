@@ -3155,6 +3155,8 @@ function generateURLSlug(val, type) {
 		urlVal = base_url + "admin/category/generateURLSlug";
 	} else if (type == 'prd') {
 		urlVal = base_url + "admin/products/generateURLSlug";
+	}else if (type == 'type') {
+		urlVal = base_url + "admin/type/generateURLSlug";
 	}
 	$.ajax({
 		url: urlVal,
@@ -3162,7 +3164,7 @@ function generateURLSlug(val, type) {
 		type: "POST",
 		data: dataString,
 		success: function (obj) {
-			if (type == 'cat' || type == 'prd') {
+			if (type == 'cat' || type == 'prd' || type == 'type') {
 				$('input[name="url_slug"]').val(obj.slug);
 			}
 			if (type == 'slug' && obj.status == 'error') {
@@ -3215,3 +3217,32 @@ $(document).on("submit", "#editNewProduct", function (e) {
 		}
 	});
 });
+
+$(document).on("submit", "#editNewType", function (e) {
+	e.preventDefault();
+	var id = $('input[name="tid"]').val();
+	if (id != '') {
+		var msg = 'updated';
+	} else {
+		var msg = 'added';
+	}
+	$.ajax({
+		url: base_url + 'admin/type/storeType',
+		dataType: 'json',
+		type: 'POST',
+		data: new FormData(this),
+		processData: false,
+		contentType: false,
+		beforeSend: function () {
+			showLoader();
+		},
+		success: function (data) {
+			timerAlert('Successful!!', 'Type has been successfully ' + msg, base_url + 'admin/type');
+		},
+		error: function () {
+			csrfError();
+		}
+	});
+});
+
+
