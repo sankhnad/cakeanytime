@@ -6,7 +6,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * Date: 03 July 2018
  * Time: 05:14 PM
  */
-
 if(! function_exists('uploadFiles')){
 	function uploadFiles( $fileName, $path = 'uploads/', $thumbs = '', $height = 240, $width = 360, $fileType = 'img' ) {
 		$CI = & get_instance();
@@ -360,6 +359,7 @@ if(! function_exists('getCitiesList')){
 		return $cityObj;
 	}
 }
+
 if(! function_exists('getCategoryList')){
     function getCategoryList($where) {
 		$CI = & get_instance();
@@ -460,6 +460,4 @@ if(! function_exists('getProductist')){
 		return array($items);
 	}
 }
-
-
 ?>

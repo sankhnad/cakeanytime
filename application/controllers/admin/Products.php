@@ -31,27 +31,24 @@ class Products extends CI_Controller {
 				}
 				if ( $inDataKey == 'filter_date' ) {
 					if ( $inDataVal ) {
-						$inDataVal = explode( "-", $inDataVal );
-						$startDate = explode( "/", trim( $inDataVal[ 0 ] ) );
-						$endDate = explode( "/", trim( $inDataVal[ 1 ] ) );
-						$startDate = $startDate[ 2 ] . '-' . $startDate[ 0 ] . '-' . $startDate[ 1 ];
-						$endDate = $endDate[ 2 ] . '-' . $endDate[ 0 ] . '-' . $endDate[ 1 ];
-						$inData .= ' AND created_on BETWEEN "' . $startDate . '" AND "' . $endDate . '"';
+						$tempDate = convertToSQLDate($inDataVal);
+						$startDate = $tempDate[0];
+						$endDate = isset($tempDate[1]) ? $tempDate[1] : '';
+						$inData .= ' AND created_on BETWEEN "'.$startDate.'" AND "'.$endDate.'"';
 					}
 				}
 			}
 		}
 
-		$recordsTotal = $this->common_model->countResults($tbl, array('isDeleted'=>'1'));
+		$recordsTotal = $this->common_model->countResults($tbl, array('isDeleted'=>"1"));
 
 		$aColumns=array(
 			'name',
-			'sku_code',
-			'type',
-			'image',
 			'model',
 			'quantity',
+			'sku_code',
 			'status',
+			'image',
 			'created_on',
 			'product_id',
 		);
@@ -63,7 +60,7 @@ class Products extends CI_Controller {
 		$sOrder = $quryTmp[ 'order' ];
 		$sLimit = $quryTmp[ 'limit' ];		
 		
-		$sAnd =  ' AND isDeleted = "1"';
+		$sAnd .=  ' AND isDeleted = "1"';
 		
 		$sQuery = "SELECT " . str_replace( " , ", " ", implode( ", ", $aColumns ) ) . " 
 		$iSQL
@@ -77,7 +74,7 @@ class Products extends CI_Controller {
 		
 		$qtrAry = $this->common_model->customQuery( $sQuery );
 
-		$sQuery = "SELECT COUNT(".$aColumns[1].") AS iFiltered
+		$sQuery = "SELECT COUNT(".$aColumns[0].") AS iFiltered
 		$iSQL
 		$sWhere
 		$sAnd
@@ -86,7 +83,7 @@ class Products extends CI_Controller {
 		";
 		
 		$iFilteredAry = $this->common_model->customQuery( $sQuery );
-		$recordsFiltered = $iFilteredAry[ 0 ][ 'iFiltered' ];
+		$recordsFiltered = $iFilteredAry[0][ 'iFiltered' ];
 
 		$sEcho = $this->input->get_post( 'draw', true );
 		$results = array(
@@ -101,15 +98,6 @@ class Products extends CI_Controller {
 			$id = $aRow['product_id'];
 			$encodedID = encode($id);
 			
-			$lastLogin = customerLastLogin($id);
-			if($lastLogin){
-				$lastLogin = date('jS M Y | h:i A', strtotime($lastLogin));
-			}else{
-				$lastLogin = 'Never Login';
-			}
-			$registeredOn = date('jS M Y | h:i A',strtotime($aRow['created_on']));
-			
-	
 			$btnAra = ' <a class="blue" data-tooltip="tooltip" title="Edit" href="'.admin_url().'products/edit/'.$encodedID.'"> <i class="ace-icon fas fa-pencil-alt bigger-130"></i> </a>';
 			
 			$btnAra .= ' <a class="red" data-tooltip="tooltip" title="Delete" onClick="deleteCommon(this,\''.$encodedID.'\',\'product\')" href="javascript:;"> <i class="ace-icon far fa-trash-alt bigger-130"></i> </a>';
@@ -129,7 +117,8 @@ class Products extends CI_Controller {
 			
 			$iURL_product = $this->config->item('default_path')['product'];
 			$avtarURL = $iURL_product.'thumb/';
-			$avtarURL .= $aRow['image'] ? $aRow['image'] : 'user.png';
+			$avtarURL .= $aRow['image'] ? $aRow['image'] : 'default.jpg';
+			
 			
 			$cDetail = '<ul class=\'popovLst\'>
 							<li class=\'prvImgPoA\'><img src=\''.$avtarURL.'\' /></li>
@@ -137,7 +126,8 @@ class Products extends CI_Controller {
 			
 			$fullName = '<a href="javascript:;"  data-trigger="hover"  data-toggle="popover"  data-content="'.$cDetail.'">'.$aRow['name'].'</a>';
 			
-			$row   = array();	
+			$row   = array();
+			$row[] = '<img width="100px" src=\''.$avtarURL.'\' />';
 			$row[] = $fullName;
 			$row[] = $aRow['model'];
 			$row[] = $aRow['quantity'];
@@ -150,8 +140,7 @@ class Products extends CI_Controller {
 		}
 		$results[ "tempData" ] = '';
 		echo json_encode( $results );
-	}	
-
+	}
 	
 	function add(){
 		$catOption[] = $this->common_model->getAll( 'category_id, name, parent_id', 'category', array( 'isDeleted' => '1', 'parent_id' => '0' ), 'sort_order asc' );
@@ -164,7 +153,8 @@ class Products extends CI_Controller {
 		$data['productAray'] = $productAray;
 		$data['parentArayList'] = $catOption;		
 		$data['ePID'] = '';
-		
+		$data['activeMenu'] = 'store';
+		$data['activeSubMenu'] = 'products';
 		$this->load->view( 'admin/product_data', $data);
 	}
 	
@@ -175,16 +165,20 @@ class Products extends CI_Controller {
 		$catOption 	 = $this->common_model->getAll('category_id, name, parent_id', 'category', array('isDeleted'=>'1','parent_id'=>'0'), 'sort_order asc');
 		$productAray = $this->common_model->getAll('*', 'product', array('isDeleted'=>'1', 'product_id'=>$id));		
 		
-		$data['typeAry'] 			= $this->common_model->getAll('*', 'type', array('isDeleted'=>1));
+		$data['typeAry'] 			= $this->common_model->getAll('*', 'type', array('isDeleted'=>'1'));
 		$data['relatedProductAry']  = $this->common_model->getAll( '*', 'product', array( 'isDeleted' => '1', 'status' => '1' ) );
 		$data['productSelectsAry']  = $this->common_model->getAll( '*', 'product_to_related', array( 'product_id' => $id ) );
 		$data['categorySelectsAry'] = $this->common_model->getAll( '*', 'product_to_category', array('product_id' => $id ) );
+		$data['typeSelectsAry'] 	= $this->common_model->getAll( '*', 'product_to_type', array('product_id' => $id ) );
 
 		
 		$data['productAray'] = $productAray;
 		$data['parentArayList'] = $catOption;	
 			
 		$data['ePID'] = $ePID;
+		
+		$data['activeMenu'] = 'store';
+		$data['activeSubMenu'] = 'products';
 		$this->load->view( 'admin/product_data', $data);
 	}
 	
@@ -192,21 +186,20 @@ class Products extends CI_Controller {
 		if ( !$this->input->is_ajax_request() || !AID ) {
 			exit( 'Unauthorized Access' );
 		}
-		//echo '<pre>';print_r($this->input->post());die;
 		$pid			= decode($this->input->post('pid'));
-		$name 			= $this->input->post('name');
+		$name 			= trim($this->input->post('name'));
 		$slug 			= $this->input->post('url_slug');
-		$desc 			= $this->input->post('desc');
-		$tag 			= $this->input->post('tag');
+		$desc 			= trim($this->input->post('desc'));
+		$tag 			= trim($this->input->post('tag'));
 		$type 			= $this->input->post('type');
 		$model 			= $this->input->post('model');
-		$sku 			= $this->input->post('sku');
+		$sku 			= trim($this->input->post('sku'));
 		$quentity		= $this->input->post('quantity');
 		$substractCode	= $this->input->post('substact_stock');
 		$stoke			= $this->input->post('stock');
 		$availableDate	= $this->input->post('date') ? convertData($this->input->post('date')) : NULL;
-		$metaDesc 		= $this->input->post('meta_desc');
-		$metaKey 		= $this->input->post('meta_keywords');
+		$metaDesc 		= trim($this->input->post('meta_desc'));
+		$metaKey 		= trim($this->input->post('meta_keywords'));
 		$status 		= $this->input->post( 'isStatus' ) ? $this->input->post( 'isStatus' ) : '0';
 		
 		$categoryArr		= $this->input->post('category');
@@ -217,7 +210,6 @@ class Products extends CI_Controller {
 			'name' => $name,
 			'url_slug' => $slug,
 			'tags' => $tag,
-			'type' => $type,
 			'model' => $model,
 			'sku_code' => $sku,
 			'quantity' => $quentity,
@@ -228,7 +220,6 @@ class Products extends CI_Controller {
 			'meta_description' => $metaDesc,
 			'meta_keyword' => $metaKey,
 			'description' => $desc,
-
 		);
 		$notId = '';
 		if($pid){
@@ -246,51 +237,50 @@ class Products extends CI_Controller {
 		if($avtar){
 			$data['image'] = uploadFiles('img', $path = 'uploads/product/', 'thumb', 360, 360 );
 		}
+		
 		if($pid){
 			$this->common_model->updateData('product', array('product_id'=>$pid), $data);
 			$this->common_model->deleteData('product_to_category', array('product_id'=>$pid));
-
-			/*foreach($categoryArr as $categId){
-					$prdCatData['product_id']  = $pid;
-					$prdCatData['category_id'] = $categId;
-					$this->common_model->saveData('product_to_category', $prdCatData);
-			}*/
-				
 			$this->common_model->deleteData('product_to_related', array('product_id'=>$pid));
-			//echo '<pre>';print_r($relatedProductsArr);die;
-			foreach($relatedProductsArr as $prdctId){
-					$prdRelatedData['product_id']  		   = $pid;
-					$prdRelatedData['product_related_id']  = $prdctId;
-					$this->common_model->saveData('product_to_related', $prdRelatedData);
-			}
-				
+			$this->common_model->deleteData('product_to_type', array('product_id'=>$pid));			
 			$status = 'updated';
 			$id = $this->input->post('pid');
 		}else{
-			//echo '<pre>';print_r($data);die;
 			$data['created_on '] = date("Y-m-d H:i:s", time());
-			$id = $this->common_model->saveData('product', $data);
-			
-			if($id){
-			
-				/*foreach($categoryArr as $categId){
-					$prdCatData['product_id']  = $id;
-					$prdCatData['category_id'] = $categId;
-					$this->common_model->saveData('product_to_category', $prdCatData);
-				}*/
-				
-				foreach($relatedProductsArr as $prdctId){
-					$prdRelatedData['product_id']  		   = $id;
-					$prdRelatedData['product_related_id']  = $prdctId;
-					$this->common_model->saveData('product_to_related', $prdRelatedData);
-				}
-			}
-			
-		
-			
+			$id = $this->common_model->saveData('product', $data);			
 			$status = 'added';
 			$id = encode($id);
 		}
+		
+		if($type){
+			foreach($type as $typeData){
+				$tData[]= array(
+					'product_id' => $pid,
+					'type_id' => $typeData,
+				);
+			}
+			$this->common_model->bulkSaveData('product_to_type', $tData);
+		}		
+		if($relatedProductsArr){
+			foreach($relatedProductsArr as $relatedProductsData){
+				$rData[]= array(
+					'product_id' => $pid,
+					'product_related_id' => $relatedProductsData,
+				);
+			}
+			$this->common_model->bulkSaveData('product_to_related', $rData);
+		}
+		if($categoryArr){
+			foreach($categoryArr as $categoryData){
+				$cData[]= array(
+					'product_id' => $pid,
+					'category_id' => $categoryData,
+				);
+			}
+			$this->common_model->bulkSaveData('product_to_category', $cData);
+		}
+		
+		
 		echo json_encode(array('status'=> $status, 'id' => $id));		
 	}
 	
@@ -340,5 +330,4 @@ class Products extends CI_Controller {
 			return($result);
 		}		
 	}
-
 }

@@ -30,12 +30,10 @@ class Customers extends CI_Controller {
 				}
 				if ( $inDataKey == 'filter_date' ) {
 					if ( $inDataVal ) {
-						$inDataVal = explode( "-", $inDataVal );
-						$startDate = explode( "/", trim( $inDataVal[ 0 ] ) );
-						$endDate = explode( "/", trim( $inDataVal[ 1 ] ) );
-						$startDate = $startDate[ 2 ] . '-' . $startDate[ 0 ] . '-' . $startDate[ 1 ];
-						$endDate = $endDate[ 2 ] . '-' . $endDate[ 0 ] . '-' . $endDate[ 1 ];
-						$inData .= ' AND created_on BETWEEN "' . $startDate . '" AND "' . $endDate . '"';
+						$tempDate = convertToSQLDate($inDataVal);
+						$startDate = $tempDate[0];
+						$endDate = isset($tempDate[1]) ? $tempDate[1] : '';
+						$inData .= ' AND created_on BETWEEN "'.$startDate.'" AND "'.$endDate.'"';
 					}
 				}
 			}

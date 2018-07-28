@@ -17896,7 +17896,7 @@ table.fixTblShort thead .sorting::after, table.fixTblShort thead .sorting_asc::a
   color: #333;
   font-size: 12px;
   font-weight: bold;
-  left: 15px;
+  right: 0px;
   position: absolute;
 }
 .actionAdresULLI > li {

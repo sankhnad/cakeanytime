@@ -4,7 +4,7 @@ function setDefaultAddress(selfObj, aid, cid) {
 		cid: cid
 	};
 	$.ajax({
-		url: admin_url + 'customer/setDefaultAddress',
+		url: admin_url + 'customers/setDefaultAddress',
 		dataType: 'json',
 		type: "POST",
 		data: dataString,

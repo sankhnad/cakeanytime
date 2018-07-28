@@ -62,12 +62,13 @@
 							<table class="table data_table table-striped table-bordered table-hover">
 								<thead>
 									<tr>
-										<th>Name</th>
-										<th>Model</th>
-										<th>Quentity</th>
-										<th>SKU Code</th>
-										<th>Status</th>
-										<th>Action</th>
+										<th width="10%">Image</th>
+										<th width="30%">Name</th>
+										<th width="15%">Model</th>
+										<th width="10%">Quentity</th>
+										<th width="15%">SKU Code</th>
+										<th width="10%">Status</th>
+										<th width="10%">Action</th>
 									</tr>
 								</thead>
 							</table>
@@ -95,6 +96,11 @@
 		}
 		filterRecord();
 	</script>
+	<style>
+		.data_table tr th:first-child, .data_table tr td:first-child{
+			text-align: center;
+		}
+	</style>
 </body>
 
 </html>
