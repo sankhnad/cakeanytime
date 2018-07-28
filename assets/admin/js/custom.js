@@ -1,3 +1,172 @@
+function setDefaultAddress(selfObj, aid, cid) {
+	var dataString = {
+		aid: aid,
+		cid: cid
+	};
+	$.ajax({
+		url: admin_url + 'customer/setDefaultAddress',
+		dataType: 'json',
+		type: "POST",
+		data: dataString,
+		beforeSend: function () {
+			showLoader();
+		},
+		success: function (data) {
+			$('.boxAddressDis').removeClass('defaultAdsULI');
+			$(selfObj).closest('.boxAddressDis').addClass('defaultAdsULI');
+		},
+		error: function () {
+			csrfError();
+		},
+	});
+}
+
+function deleteAddress(selfObj, aid) {
+	var adress = '<ul>' + $('.addressULLI').html() + '</ul>';
+	swal({
+		title: "Confirm Deletion!!",
+		html: "<div class='confrmDletMs'>" + adress + "<br><br>Please note: Deleting this address will not delete any pending orders being shipped to this address. To ensure uninterrupted fulfillment of future orders, please update any wishlists, subscribe and save settings and periodical subscriptions using this address.</div>",
+		type: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#DD6B55",
+		confirmButtonText: "Yes",
+		cancelButtonText: "No"
+	}).then(function () {
+		var dataString = {
+			id: aid,
+		};
+		$.ajax({
+			url: admin_url + 'customers/deleteAddress',
+			dataType: 'json',
+			type: "POST",
+			data: dataString,
+			beforeSend: function () {
+				showLoader();
+			},
+			success: function (data) {
+				if (data.status == 'child') {
+					if (type == 'state') {
+						var msg = 'You cannot delete this state until the city of this state get deleted. So, please delete all cities of this state first';
+					} else if (type == 'city') {
+						var msg = 'You cannot delete this city until the area of this city get deleted. So, please delete all areas of this city first';
+					} else if (type == 'area') {
+
+					}
+					swal("Oops!!", msg, "error");
+				} else if (data.status == 'success') {
+					timerAlert('Successful!!', 'Record has been deleted Successfully');
+					$(selfObj).closest('.col-sm-4').fadeOut('slow');
+				}
+			},
+			error: function () {
+				csrfError();
+			},
+		});
+
+	});
+}
+
+function editAddressModel(aid, cid) {
+	var dataString = {
+		aid: aid,
+		cid: cid,
+	};
+	$.ajax({
+		url: admin_url + 'customers/getAddress',
+		dataType: 'json',
+		type: 'POST',
+		data: dataString,
+		success: function (data) {
+			$('#editNewAddress input[name="aid"]').val(aid);
+			$('#editNewAddress input[name="name"]').val(data.name);
+			$('#editNewAddress input[name="mobile"]').val(data.mobile);
+			$('#editNewAddress input[name="pin"]').val(data.pin);
+			$('#editNewAddress input[name="addresline1"]').val(data.address_line_1);
+			$('#editNewAddress input[name="addresline2"]').val(data.address_line_2);
+			$('#editNewAddress input[name="landmark"]').val(data.landmark);
+			$('#editNewAddress input[name="city"]').val(data.city);
+			$('#editNewAddress select[name="state"]').val(data.sid);
+			var isDefault = data.isDefault == '1' ? true : false;
+			$('#editNewAddress input[name="isDefault"]').prop('checked', isDefault);
+			$('#editNewAddress input[name="type"][value="' + data.type + '"]').prop('checked', true);
+			
+			if(data.type == '0'){
+				$('.otherTypAdrs label').html('Remarks');
+			}else if(data.type == '1'){
+				$('.otherTypAdrs label').html('Office Name');
+			}else if(data.type == '2'){
+				$('.otherTypAdrs label').html('Other');
+			}
+			$('#editNewAddress input[name="remarks"]').val(data.remarks);
+			$("#addressAddEdit").modal();
+		},
+		error: function () {
+			csrfError();
+		}
+	});
+}
+
+$('#addressAddEdit').on('hide.bs.modal', function () {
+	$('#addressAddEdit select[name="state"], input[name="aid"]').val('');
+	$('#addressAddEdit form')[0].reset();
+	$('.selectpicker').selectpicker('refresh');
+})
+
+$(document).on("submit", "#editNewAddress", function (e) {
+	e.preventDefault();
+	var id = $('input[name="aid"]').val();
+	if (id != '') {
+		var msg = 'updated';
+	} else {
+		var msg = 'added';
+	}
+	$.ajax({
+		url: admin_url + 'customers/editNewAddress',
+		dataType: 'json',
+		type: 'POST',
+		data: new FormData(this),
+		processData: false,
+		contentType: false,
+		success: function (data) {
+			var url = window.location.href;
+			var urlParams = new URLSearchParams(window.location.search);
+			if (!urlParams.has('address')) {
+				url += '?address=true';
+			}
+			timerAlert('Successfull!', 'Successfully ' + msg, url);
+		},
+		error: function () {
+			csrfError();
+		}
+	});
+});
+
+function getZipData(pinCode) {
+	var pinCode = parseInt(pinCode);
+	if ((pinCode < 100000) || !$.isNumeric(pinCode)) {
+		return false;
+	}
+	var dataString = {
+		pinCode: pinCode
+	};
+	$.ajax({
+		url: admin_url + 'location/getPINCodeData',
+		dataType: 'json',
+		type: 'POST',
+		data: dataString,
+		success: function (data) {
+			$('#editNewAddress input[name="city"]').val(data.city);
+			$('#editNewAddress select[name="state"]').val(data.sid);
+			var addresLine1 = $('#editNewAddress input[name="addresline2"]').val();
+			if (!addresLine1) {
+				$('#editNewAddress input[name="addresline2"]').val(data.area);
+			}
+		},
+		error: function () {
+			csrfError();
+		}
+	});
+}
 function manageAddressPan() {
 	$('.addressAreaContnr').slideDown(function () {
 		$('html, body').animate({

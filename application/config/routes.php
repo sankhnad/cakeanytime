@@ -55,8 +55,9 @@ $route['404_override'] = 'errror404';
 $route['error-404'] = 'errror404';
 $route['error-500'] = 'errror500';
 $route['translate_uri_dashes'] = FALSE;
-$route['logout'] = 'process/logout';
 $route['admin'] = 'admin/dashboard';
+$route['admin/logout'] = 'admin/login/logout';
+$route['logout'] = 'admin/login/logout';
 
 
 

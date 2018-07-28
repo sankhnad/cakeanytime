@@ -222,4 +222,16 @@ class Login extends CI_Controller {
 		}
 		echo json_encode(array( 'status' => $status));
 	}	
+	
+	function logout() {
+        $this->session->sess_destroy();
+		delete_cookie('AID');
+		delete_cookie('UID');
+        $url = $this->input->get('ulr');
+        $url = $url ? '#'.$url : '';
+        unset( $_SESSION['AID']);
+		unset( $_SESSION['UID']);
+        unset( $_SESSION['CREATED']);
+        redirect( admin_url() . 'login'.$url );
+    }
 }

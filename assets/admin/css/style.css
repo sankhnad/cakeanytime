@@ -17528,17 +17528,6 @@ table.fixTblShort thead .sorting::after, table.fixTblShort thead .sorting_asc::a
 	float: left;
 	margin-right: 5px;
 }
-.required{
-	position:relative;	
-}
-.required::before {
-  color: #df0803;
-  content: "*";
-  font-size: 13px;
-  left: 106%;
-  position: absolute;
-  top: -1px;
-}
 .confrmDletMs li {
   color: red;
   font-size: 15px;
@@ -17765,9 +17754,6 @@ table.fixTblShort thead .sorting::after, table.fixTblShort thead .sorting_asc::a
 .locationMaxLngX:hover{
 	text-decoration: underline;
 }
-.otherTypAdrs{
-	display: none;
-}
 
 .spacalPriceW{
 	display: inline-block;
@@ -17821,9 +17807,6 @@ table.fixTblShort thead .sorting::after, table.fixTblShort thead .sorting_asc::a
 .aprovAcpr .bxRslr.form-group, .boxRightTypeI .form-group, .boxleftTypeF.col-md-6 .form-group{
   margin-right: auto;
 }
-.spacalPriceW .form-group{
-	margin-bottom: 15px;
-}
 
 .usernameErr, .emailErr, .slugErr, .emailValidaErr{
 	display: none;
@@ -17837,20 +17820,118 @@ table.fixTblShort thead .sorting::after, table.fixTblShort thead .sorting_asc::a
   display: inline;
 }
 
-.spacalPriceW{
-	display: inline-block;
-	width: 100%;
-	margin: 0;
-	padding: 0;
+
+.addressAreaContnr{
+	display: none;
 }
-.spacalPriceW > li{
-	display: inline-block;
-	width: 100%;
-	margin: 0;
-	padding: 0;
+.pageTopHdarCntnr {
+  border-bottom: 1px solid #f2f2f2;
+  display: inline-block;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  width: 100%;
+}
+
+.newAddressBox {
+  border: 2px dashed #c7c7c7;
+  box-sizing: border-box;
+  display: block;
+  font-size: 2.2em;
+  padding: 24% 0;
+  margin-bottom:15px;
+  text-align: center;
+  cursor: pointer;
+  font-weight:500;
+  box-shadow:0 3px 4px 1px rgba(0, 0, 0, 0.2);
+}
+.newAddressBox:hover {
+  border-color: #03a9f3;
+  border-radius: 5px;
+  color: #03a9f3;
+}
+.newAddressBox span{
+	display: block;
+}
+.boxAddressDis li{
 	list-style: none;
-	position: relative;
 }
-.spacalPriceW .form-group{
-	margin-bottom: 15px;
+.boxAddressDis ul {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+.defultBxRa {
+  border-bottom: 1px solid #03a9f3;
+  color: #777;
+  display: none;
+  font-size: 12px;
+  line-height: 0.6;
+  margin-bottom: 7px;
+  padding-bottom: 10px;
+}
+.boxAddressDis {
+  border: 1px solid #777;
+  display: inline-block;
+  margin-bottom: 15px;
+  padding: 15px 15px 40px 15px;
+  width: 100%;
+  box-shadow:0 3px 4px 1px rgba(0, 0, 0, 0.4);
+  position: relative;
+  font-size: 13px;
+}
+.defaultAdsULI{
+	border-color: #03a9f3;
+}
+.defaultAdsULI .defultBxRa {
+  display: block;
+}
+.addressULLI > li{
+	
+}
+.addressULLI > li:first-child {
+  font-weight: bold;
+}
+.actionAdresULLI {
+  bottom: 15px;
+  color: #333;
+  font-size: 12px;
+  font-weight: bold;
+  left: 15px;
+  position: absolute;
+}
+.actionAdresULLI > li {
+  cursor: pointer;
+  float: left;
+  line-height: 12px;
+  margin-right: 8px;
+  padding-right: 8px;
+}
+.actionAdresULLI > li:hover{
+	text-decoration: underline;
+}
+.actionAdresULLI > li:nth-child(1), .actionAdresULLI > li:nth-child(2) {
+  border-right: 2px solid #666;
+}
+.defaultAdsULI .actionAdresULLI > li:nth-child(3) {
+  display: none;
+}
+.defaultAdsULI .actionAdresULLI > li:nth-child(2) {
+  border: none;
+}
+.bottomTxt{
+	font-size:11px;
+}
+.cityLisingFilter, .cityLisingModel{
+	display: none;
+}
+.required{
+	position:relative;	
+}
+.required::before {
+  color: #df0803;
+  content: "*";
+  font-size: 13px;
+  left: 106%;
+  position: absolute;
+  top: -1px;
 }

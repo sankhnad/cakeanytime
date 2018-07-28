@@ -395,12 +395,6 @@ class Location extends CI_Controller {
 		echo json_encode( array( 'status' => true ) );
 	}
 	
-	
-	
-	
-	
-	
-	
 	function area($eID=''){
 		$data['activeMenu'] = 'location';
 		$data['activeSubMenu'] = 'area';
@@ -503,8 +497,7 @@ class Location extends CI_Controller {
 		}
 		$results["tempData"] = '';
 		echo json_encode( $results );
-	}
-	
+	}	
 	
 	function deleteData() {
 		if(!$this->input->is_ajax_request() || !AID ) {
@@ -513,7 +506,7 @@ class Location extends CI_Controller {
 		
 		$id = decode($this->input->post('id'));
 		$type = $this->input->post('type');
-		$data = array('isDeleted'=>0);
+		$data = array('isDeleted'=>'0');
 		
 		if($type == 'state'){
 			$recordsTotal = $this->common_model->countResults('location_city', array('isDeleted'=>'1', 'sid'=>$id));
@@ -642,6 +635,25 @@ class Location extends CI_Controller {
 		}
 		$this->common_model->updateData($tbl, $where, $data);
 		echo json_encode( array( 'status' => 'success' ) );
+	}
+	
+	function getPINCodeData(){
+		$pinCode = $this->input->post('pinCode');
+		$output = '';
+		$select = 'a.areaName, b.pin, c.cityName, d.stateName, a.aid, c.cid, d.sid';
+		$where = array('a.pin' => $pinCode);
+		$result = $this->manual_model->getFullLocationData($select, $where);
+		if($result){
+			$output = array(
+				'area' => $result[0]->areaName,
+				'city' => $result[0]->cityName,
+				'state' => $result[0]->stateName,
+				'aid' => $result[0]->aid,
+				'cid' => $result[0]->cid,
+				'sid' => $result[0]->sid,
+			);
+		}
+		echo json_encode($output);
 	}
 }
 

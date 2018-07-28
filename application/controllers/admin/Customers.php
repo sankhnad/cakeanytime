@@ -164,8 +164,6 @@ class Customers extends CI_Controller {
 		echo json_encode( $results );
 	}	
 	
-	
-	
 	function add(){
 		$customerDisAry = $addressList = array();
 		$groupAry = $this->common_model->getAll('id, name, isDefault', 'customer_group', array('status'=>'1', 'isDeleted'=>'1'));
@@ -175,7 +173,7 @@ class Customers extends CI_Controller {
 		$data['groupAry'] = $groupAry;
 		$data['cid'] = '';
 		$data['activeMenu'] = 'customers';
-		$this->load->view( 'admin/customer_add', $data);
+		$this->load->view( 'admin/customer_data', $data);
 	}
 	
 	function edit($id=''){
@@ -189,7 +187,7 @@ class Customers extends CI_Controller {
 			return(false);
 		}
 		$customerData = $this->common_model->getAll('*', 'customer', array('isDeleted'=>'1', 'id'=>$id));
-		$addressList = $this->manual_model->getFullCustomerAddress(array('a.isDeleted'=>'1', 'a.aid'=>$id), array('a.isDefault','asc'));
+		$addressList = $this->manual_model->getFullCustomerAddress(array('a.isDeleted'=>'1'), array('a.isDefault','asc'));
 		
 		if(!$customerData){
 			$this->load->view('admin/404');
@@ -207,7 +205,7 @@ class Customers extends CI_Controller {
 		$data['groupSelectedAry'] = $groupSelectedAry;
 		$data['cid'] = $encriptedID;
 		$data['activeMenu'] = 'customers';
-		$this->load->view( 'admin/customer_add', $data);
+		$this->load->view( 'admin/customer_data', $data);
 	}
 	
 	function customerAddEdit() {
@@ -349,11 +347,9 @@ class Customers extends CI_Controller {
 				'status'=> $status,
 			);
 		}
-		$this->common_model->updateData('tbl_customer', array('cid'=>$id), $data);
+		$this->common_model->updateData('customer', array('cid'=>$id), $data);
 		echo json_encode( array( 'status' => true ) );
 	}
-	
-	
 	
 	function editNewAddress(){
 		if(!$this->input->is_ajax_request() || !AID ) {
@@ -371,33 +367,34 @@ class Customers extends CI_Controller {
 		$state = $this->input->post('state');
 		$isDefault = $this->input->post('isDefault');
 		$type = $this->input->post('type');
-		if($type == '3'){
-			$type = $this->input->post('otherTypVal');
-		}
+		$remarks = $this->input->post('remarks');		
 		
 		$data = array(
-			'fld_cid'		=> $cid,
-			'fld_name'		=> rtrim($name,','),
-			'fld_mobile'	=> str_replace(' ', '', $mobile),
-			'fld_pin'		=> $pin,
-			'fld_address_line_1'=> rtrim($addresline1,','),
-			'fld_address_line_2'=> rtrim($addresline2,','),
-			'fld_landmark'	=> rtrim($landmark,','),
-			'fld_city'		=> rtrim($city,','),
-			'fld_stateCode'	=> $state,
-			'fld_type'	=> $type,
+			'cid'		=> $cid,
+			'name'		=> rtrim($name,','),
+			'mobile'	=> str_replace(' ', '', $mobile),
+			'pin'		=> $pin,
+			'address_line_1'=> rtrim($addresline1,','),
+			'address_line_2'=> rtrim($addresline2,','),
+			'landmark'	=> rtrim($landmark,','),
+			'city'		=> rtrim($city,','),
+			'stateCode'	=> $state,
+			'type'	=> $type,
+			'remarks'	=> $remarks,
 		);
+		
+		$table = 'address';
 		if($isDefault){
-			$this->common_model->updateData('tbl_address', array('fld_isDefault'=>2, 'fld_cid'=>$cid), array('fld_isDefault'=>1));
-			$data['fld_isDefault'] = '1';
+			$this->common_model->updateData($table, array('isDefault'=>'1', 'cid'=>$cid), array('isDefault'=>'0'));
+			$data['isDefault'] = '1';
 		}else{
-			$data['fld_isDefault'] = '2';
+			$data['isDefault'] = '0';
 		}
 		if($aid){		
-			$this->common_model->updateData('tbl_address', array('fld_aid'=>$aid), $data);
+			$this->common_model->updateData($table, array('aid'=>$aid), $data);
 		}else{
-			$data['fld_created_date'] = date( "Y-m-d H:i:s", time() );
-			$aid = $this->common_model->saveData( "tbl_address", $data );
+			$data['created_on'] = date( "Y-m-d H:i:s", time() );
+			$aid = $this->common_model->saveData($table, $data );
 		}
 		echo json_encode( array('aid' => encode($aid)) );
 	}
@@ -407,42 +404,55 @@ class Customers extends CI_Controller {
 		$aid = decode($this->input->post('aid'));
 		$cid = decode($this->input->post('cid'));
 		$where = array(
-			'fld_cid'		=> $cid,
-			'fld_aid'		=> $aid,
-			'fld_isDeleted'		=> '2',
+			'cid'		=> $cid,
+			'aid'		=> $aid,
+			'isDeleted'		=> '1',
 		);
-		$data = $this->common_model->getAll('*', 'tbl_address', $where);
+		$data = $this->common_model->getAll('*', 'address', $where);
 		if($data){
 			$output = array(
-				'name'		=> $data[0]->fld_name,
-				'mobile'	=> $data[0]->fld_mobile,
-				'pin'		=> $data[0]->fld_pin,
-				'address_line_1'=> $data[0]->fld_address_line_1,
-				'address_line_2'=> $data[0]->fld_address_line_2,
-				'landmark'	=> $data[0]->fld_landmark,
-				'city'		=> $data[0]->fld_city,
-				'sid'	=> $data[0]->fld_stateCode,
-				'type'	=> $data[0]->fld_type,
-				'isDefault'	=> $data[0]->fld_isDefault,
+				'name'		=> $data[0]->name,
+				'mobile'	=> $data[0]->mobile,
+				'pin'		=> $data[0]->pin,
+				'address_line_1'=> $data[0]->address_line_1,
+				'address_line_2'=> $data[0]->address_line_2,
+				'landmark'	=> $data[0]->landmark,
+				'city'		=> $data[0]->city,
+				'sid'	=> $data[0]->stateCode,
+				'type'	=> $data[0]->type,
+				'isDefault'	=> $data[0]->isDefault,
+				'remarks'	=> $data[0]->remarks,
 			);
 		}
 		echo json_encode($output);
 	}
 	
 	function setDefaultAddress(){
-		$tbl = 'tbl_address';
+		$tbl = 'address';
 		$aid = decode($this->input->post('aid'));
 		$cid = decode($this->input->post('cid'));
-		$this->common_model->updateData($tbl, array('fld_isDefault'=>1), array('fld_isDefault'=>2, 'fld_cid'=>$cid));
+		$this->common_model->updateData($tbl, array('isDefault'=>'1'), array('isDefault'=>'0', 'cid'=>$cid));
 		
-				
 		$aid = decode($this->input->post('aid'));
-		$where = array('fld_aid'=>$aid);
+		$where = array('aid'=>$aid);
 		$data = array(
-			'fld_isDefault'=> '1',
+			'isDefault'=> '1',
 		);
 		
 		$this->common_model->updateData($tbl, $where, $data);
 		echo json_encode( array( 'status' => true ) );
 	}
+	
+	function deleteAddress(){
+		$tbl = 'address';
+		$this->input->post('id');
+		$aid = decode($this->input->post('id'));
+		$where = array('aid'=>$aid);
+		$data = array(
+			'isDeleted'=> '0',
+		);
+		
+		$this->common_model->updateData($tbl, $where, $data);
+		echo json_encode( array( 'status' => 'success' ) );
+	}	
 }
