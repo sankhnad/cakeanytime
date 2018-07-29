@@ -433,14 +433,6 @@ $(document).on("submit", "#editNewCity", function (e) {
 	});
 });
 
-$('#locationAddEdit').on('hide.bs.modal', function () {
-	$('input[name="name"], input[name="sid"], input[name="cid"], select[name="sid"], select[name="cid"]').val('');
-	$('.cityLisingModel').hide();
-	$('.cityLisingModel select').html('');
-	$('#locationAddEdit form')[0].reset();
-	$('div [class*=colBoxArPIN]').not('.colBoxArPIN1').remove();
-	$('.selectpicker').selectpicker('refresh');
-});
 
 function deleteLocation(selfObj, id, type) {
 	swal({
@@ -488,6 +480,19 @@ function deleteLocation(selfObj, id, type) {
 }
 
 function editLocation(selfObj, id, type) {
+	
+    if(!id){
+		$('.acnLbl').html('Add New');
+
+		$('input[name="name"], input[name="sid"], input[name="cid"], select[name="sid"], select[name="cid"]').val('');
+		$('.cityLisingModel').hide();
+		$('.cityLisingModel select').html('');
+		$('#locationAddEdit').modal();
+		$('div [class*=colBoxArPIN]').not('.colBoxArPIN1').remove();
+		$('.selectpicker').selectpicker('refresh');
+		return false;
+	}
+	
 	var dataString = {
 		id: id,
 		type: type
@@ -505,6 +510,7 @@ function editLocation(selfObj, id, type) {
 			if (type == 'state') {
 				$('input[name="sid"]').val(id);
 				$('input[name="name"]').val(data.stateName);
+				
 			} else if (type == 'city') {
 				$('select[name="sid"]').val(data.sid);
 				$('input[name="cid"]').val(id);
@@ -524,9 +530,13 @@ function editLocation(selfObj, id, type) {
 				$('input[name="aid"]').val(id);
 				$('select[name="sid"]').val(data[0].fld_sid);
 				getLocationData(data[0].fld_sid, 'city', '', data[0].fld_cid);
+			}else if (type == 'pin') {
+				$('select[name="sid"]').val(data.sid);
+				$('input[name="pid"]').val(data.pid);
+				$('input[name="name"]').val(data.pin);
 			}
-
-			$('button[data-target="#locationAddEdit"]').click();
+				$('.acnLbl').html('Update');
+				$('#locationAddEdit').modal();
 		},
 		error: function () {
 			csrfError();
