@@ -149,6 +149,7 @@ class Products extends CI_Controller {
 		$data['relatedProductAry']  = $this->common_model->getAll( '*', 'product', array( 'isDeleted' => '1', 'status' => '1' ) );
 		$data['productSelectsAry']  = array();
 		$data['categorySelectsAry'] = array();
+		$data['typeSelectsAry'] = array();
 	
 		$data['productAray'] = $productAray;
 		$data['parentArayList'] = $catOption;		
@@ -250,7 +251,9 @@ class Products extends CI_Controller {
 			$id = $this->common_model->saveData('product', $data);			
 			$status = 'added';
 			$id = encode($id);
+			
 		}
+		
 		
 		if($type){
 			foreach($type as $typeData){

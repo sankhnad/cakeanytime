@@ -135,6 +135,7 @@ class Location extends CI_Controller {
 	function city($eID=''){
 		$data['activeMenu'] = 'location';
 		$data['activeSubMenu'] = 'city';
+		$data['eID'] = $eID;
 		$data['stateAry'] = $this->common_model->getAll('stateName, sid', 'location_state', array('isDeleted'=>'1'));
 		$this->load->view('admin/city_list', $data);
 	}
@@ -151,6 +152,11 @@ class Location extends CI_Controller {
 				if ( $inDataKey == 'filter_status' ) {
 					if($inDataVal){
 						$inData .= ' AND a.status IN("'.implode('","', $inDataVal).'")';
+					}
+				}
+				if ( $inDataKey == 'filter_sid' ) {
+					if($inDataVal){
+						$inData .= ' AND a.sid  = "'.decode($inDataVal).'"';
 					}
 				}
 				if($inDataKey == 'filter_date'){

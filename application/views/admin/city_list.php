@@ -99,7 +99,10 @@
 					<label>State List</label>
 					<select class="selectpicker" data-width="100%" name="sid" title="Select State" data-live-search="true" required>
                        <?php $statList = ''; foreach($stateAry as $stateData){
-							$statList .= '<option value="'.encode($stateData->sid).'">'.$stateData->stateName.'</option>';
+					   		
+							$encrptIDState = encode($stateData->sid);
+							$isStateSelct = $eID == $encrptIDState ? 'selected' : '';
+							$statList .= '<option '.$isStateSelct.' value="'.$encrptIDState.'">'.$stateData->stateName.'</option>';
 						}
 						echo $statList;
 						?>
@@ -128,6 +131,7 @@
 			filterData = {
 				"filter_date": $( 'input.filter_date' ).val(),
 				"filter_status": $( 'select.filter_status' ).val(),
+				"filter_sid": '<?=$eID?>',
 			};
 			ajaxPageTarget('data_table', 'location', 'city_list' );
 		}
