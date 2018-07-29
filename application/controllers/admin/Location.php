@@ -42,7 +42,7 @@ class Location extends CI_Controller {
 		
 		$aColumns=array(
 			'stateName',
-			'(SELECT COUNT(*) FROM location_city WHERE sid = location_state.sid) AS totalCity',
+			'(SELECT COUNT(*) FROM location_city WHERE sid = location_state.sid AND isDeleted = 1) AS totalCity',
 			'created_on',
 			'status',
 			'sid',
@@ -175,7 +175,7 @@ class Location extends CI_Controller {
 		$aColumns=array(
 			'a.cityName',
 			'b.stateName', 
-			'(SELECT COUNT(pid) FROM location_pin as c WHERE c.cid = a.cid) AS totalPin',
+			'(SELECT COUNT(pid) FROM location_pin as c WHERE c.cid = a.cid AND isDeleted = 1) AS totalPin',
 			'a.created_on',
 			'a.status',
 			'a.cid',
@@ -272,6 +272,8 @@ class Location extends CI_Controller {
 	function pin($eID=''){
 		$data['activeMenu'] = 'location';
 		$data['activeSubMenu'] = 'pin';
+		$data['stateAry'] = $this->common_model->getAll('stateName, sid', 'location_state', array('isDeleted'=>'1','status'=>'1'));
+
 		$this->load->view('admin/pin_list', $data);
 	}
 	
@@ -404,6 +406,9 @@ class Location extends CI_Controller {
 	function area($eID=''){
 		$data['activeMenu'] = 'location';
 		$data['activeSubMenu'] = 'area';
+		$data['pinAry'] = $this->common_model->getAll('pin', 'location_pin', array('isDeleted'=>'1','status'=>'1'));
+		
+
 		$this->load->view('admin/area_list', $data);
 	}
 	
@@ -589,7 +594,7 @@ class Location extends CI_Controller {
 			$select = 'c.pid, b.cid, a.sid, c.pin';
 			$table = 'location_pin';
 			$where = array(
-				'c.pid'=>$id,
+				'c.pin'=>$id,
 				'c.isDeleted'=>'1'
 			);
 			$objData = $this->manual_model->getLocationData($select, $where, 'pin');

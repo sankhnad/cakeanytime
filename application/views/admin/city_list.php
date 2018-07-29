@@ -38,7 +38,7 @@
 							<div class="headPageA">
 								<div class="titleAre"><i class="fas fa-users"></i> City List</div>
 								<div class="buttonAre">
-									<button data-toggle="modal" data-target="#locationAddEdit" class="btn btn-primary"><i class="ace-icon fas fa-plus"></i> Add City</i></button>
+									<button onClick="editLocation(this,'','city')" class="btn btn-primary"><i class="ace-icon fas fa-plus"></i> Add City</i></button>
 								</div>
 							</div>
 							<div class="hr dotted hr-double"></div>
@@ -92,7 +92,7 @@
 				<input type="hidden" name="cid" />
 				<div class="modal-header">
 				  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				  <h4 class="modal-title">Add New State</h4>
+				  <h4 class="modal-title"><span class="acnLbl"></span> City</h4>
 				</div>
 				<div class="modal-body">
 				  <div class="form-group">
@@ -110,7 +110,7 @@
 				  </div>
 				  <div class="form-group">
 					<label>City Name</label>
-					<input type="text" name="name" class="form-control" placeholder="Enter Group Name" required>
+					<input type="text" name="name" class="form-control" placeholder="Enter City Name" required>
 				  </div>
 				</div>
 				<div class="modal-footer">
