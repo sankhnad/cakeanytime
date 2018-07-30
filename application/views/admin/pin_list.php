@@ -107,14 +107,7 @@
 						?>
 					</select>
 				  </div>
-<<<<<<< HEAD
 				  <div class="multiAddLocalCon"></div>
-=======
-				  <div class="form-group">
-					<label>PIN Code</label>
-					<input type="text" name="name" class="form-control" placeholder="Enter Pin Code" required>
-				  </div>
->>>>>>> bd4b57ab29b543371e175c375a218e4b4db5a0e1
 				</div>
 				<div class="modal-footer">
 				  <button type="button" class="btn btn-inverse" data-dismiss="modal">Cancel</button>

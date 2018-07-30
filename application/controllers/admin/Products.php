@@ -141,22 +141,9 @@ class Products extends CI_Controller {
 	}
 	
 	function add(){
-<<<<<<< HEAD
 		$data['typeAry'] = $this->common_model->getAll('*', 'type', array('isDeleted'=>1));
 		$data['relatedProductAry']  = $this->common_model->getAll( '*', 'product', array('isDeleted' => '1', 'status' => '1' ));
 		$data['productSelectsAry'] = $data['categorySelectsAry'] = $data['typeSelectsAry'] = $data['productAray'] = array();
-=======
-		$catOption[] = $this->common_model->getAll( 'category_id, name, parent_id', 'category', array( 'isDeleted' => '1', 'parent_id' => '0' ), 'sort_order asc' );
-		$productAray = array();
-		$data['typeAry'] 			= $this->common_model->getAll('*', 'type', array('isDeleted'=>1));
-		$data['relatedProductAry']  = $this->common_model->getAll( '*', 'product', array( 'isDeleted' => '1', 'status' => '1' ) );
-		$data['productSelectsAry']  = array();
-		$data['categorySelectsAry'] = array();
-		$data['typeSelectsAry'] = array();
-	
-		$data['productAray'] = $productAray;
-		$data['parentArayList'] = $catOption;		
->>>>>>> bd4b57ab29b543371e175c375a218e4b4db5a0e1
 		$data['ePID'] = '';
 		$data['activeMenu'] = 'store';
 		$data['activeSubMenu'] = 'products';
