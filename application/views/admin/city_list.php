@@ -95,7 +95,7 @@
 				  <h4 class="modal-title">Add New State</h4>
 				</div>
 				<div class="modal-body">
-				  <div class="form-group">
+				    <div class="form-group">
 					<label>State List</label>
 					<select class="selectpicker" data-width="100%" name="sid" title="Select State" data-live-search="true" required>
                        <?php $statList = ''; foreach($stateAry as $stateData){
@@ -105,10 +105,7 @@
 						?>
 					</select>
 				  </div>
-				  <div class="form-group">
-					<label>City Name</label>
-					<input type="text" name="name" class="form-control" placeholder="Enter Group Name" required>
-				  </div>
+					<div class="multiAddLocalCon"></div>
 				</div>
 				<div class="modal-footer">
 				  <button type="button" class="btn btn-inverse" data-dismiss="modal">Cancel</button>
@@ -132,7 +129,7 @@
 			ajaxPageTarget('data_table', 'location', 'city_list' );
 		}
 		filterRecord();
+		addRemoveLocaInput(this, 'add', 'city');
 	</script>
 </body>
-
 </html>

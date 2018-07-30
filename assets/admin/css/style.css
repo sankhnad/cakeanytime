@@ -16820,6 +16820,9 @@ input.typeahead.scrollable~.tt-menu{
 .-mt10{
 	margin-top: -10px !important;
 }
+.-ml15{
+	margin-left:  -15px !important;
+}
 .mt0{
 	margin-top: 0px !important;
 }
@@ -17934,4 +17937,9 @@ table.fixTblShort thead .sorting::after, table.fixTblShort thead .sorting_asc::a
   left: 106%;
   position: absolute;
   top: -1px;
+}
+
+.custmBPls {
+  border-width: 1px;
+  margin-left: -20px;
 }

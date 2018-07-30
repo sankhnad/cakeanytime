@@ -1,3 +1,35 @@
+function addRemoveLocaInput(selfObj, type, location){	
+	if(type=='Remove'){
+		$(selfObj).closest('.row').remove();
+		return false;
+	}
+	
+	var multiLenght = $('.multiAddLocalCon .row').length;
+	var action = multiLenght >= 1 ? 'Remove' : 'Add';
+	var prefix = multiLenght >= 1 ? 'This <br>' : 'More <br>';
+	var actionIcon = multiLenght >= 1 ? 'fa-minus' : 'fa-plus';
+	var actionClass = multiLenght >= 1 ? 'btn-danger' : 'btn-success';
+	
+	if(location == 'state'){
+		var lblName = 'State Name';
+	}else if(location == 'city'){
+		var lblName = 'City Name';
+	}else if(location == 'pin'){
+		var lblName = 'PIN Code';
+	}else if(location == 'area'){
+		var lblName = 'Area Name';
+	}
+	var globalInputBox = '<div class="row"><div class="form-group col-md-11">'+
+			'<label>'+lblName+'</label>'+
+			'<input type="text" name="name[]" class="form-control" placeholder="Enter '+lblName+'" required>'+
+		'</div>'+
+		'<div class="form-group col-md-1">'+
+			'<label class="show"> &nbsp; </label>'+
+			'<button type="button" data-tooltip="tooltip" title="'+action+' '+prefix+' '+lblName+'" onclick="addRemoveLocaInput(this,\''+action+'\',\''+location+'\')" class="btn custmBPls '+actionClass+'"><i class="fa '+actionIcon+'"></i> </button>'+
+		'</div></div>';
+	$('.multiAddLocalCon').append(globalInputBox);
+	processTooltip();
+}
 function setDefaultAddress(selfObj, aid, cid) {
 	var dataString = {
 		aid: aid,
@@ -3099,7 +3131,7 @@ function getCategoryChield(id, targetVl) {
 			if (!obj[0]) {
 				return false;
 			}
-			var catHTML = '<select onChange="getCategoryChield(this, ' + targetVl + ')" class="selectpicker catLvl' + targetVl + '" title="Select Parent Category" data-live-search="true" data-width="100%">';
+			var catHTML = '<select onChange="getCategoryChield(this.value, ' + targetVl + ')" class="selectpicker mb15 catLvl' + targetVl + '" title="Select Parent Category" data-live-search="true" data-width="100%">';
 			$.each(obj, function (key, value) {
 				catHTML += '<option value="' + value.category_id + '">' + value.name + '</option>';
 			});
@@ -3198,13 +3230,30 @@ $(document).on("submit", "#editNewProduct", function (e) {
 	} else {
 		var msg = 'added';
 	}
+	
+	var formObj = new FormData(this);
+	
+	var nodes = treeObj.getCheckedNodes(true);
+	if(!nodes.length){
+		swal("Oops!!", 'Please select at least one category', "error");
+		return false;
+	}
+	var notObj = [];
+	$.each(nodes, function( index, value ){
+    	notObj.push(value.id);
+	});
+	formObj.append("category", notObj)
+	
 	$.ajax({
 		url: base_url + 'admin/products/storeProduct',
 		dataType: 'json',
 		type: 'POST',
-		data: new FormData(this),
+		data: formObj,
 		processData: false,
 		contentType: false,
+		beforeSend: function () {
+			showLoader()
+		},
 		success: function (data) {
 			if (data.status == 'slug_error') {
 				swal("Sorry!", "This product name is not available, choose a different productname.", "error");
