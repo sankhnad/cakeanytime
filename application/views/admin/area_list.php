@@ -122,6 +122,7 @@
 			ajaxPageTarget('data_table', 'location', 'area_list' );
 		}
 		filterRecord();
+		addRemoveLocaInput(this, 'add', 'area');
 	</script>
 </body>
 

@@ -29,20 +29,24 @@ if ( $productAray ) {
 
 $typeList = $relatedPrdctList = '';
 
-$typeSelectsAry = json_decode(json_encode($typeSelectsAry), true);
-$typeSelectsAry = array_column($typeSelectsAry, 'type_id');
+if($typeSelectsAry){
+	$typeSelectsAry = json_decode(json_encode($typeSelectsAry), true);
+	$typeSelectsAry = array_column($typeSelectsAry, 'type_id');
+}
 foreach ( $typeAry as $data ) {
 	$isTypSelt = in_array($data->type_id, $typeSelectsAry) ? 'selected' : '';
 	$typeList .= '<option '.$isTypSelt.' value="' . $data->type_id . '">' . $data->name . '</option>';
 }
 
-
-$productSelectsAry = json_decode(json_encode($productSelectsAry), true);
-$productSelectsAry = array_column($productSelectsAry, 'product_related_id');
-foreach ( $relatedProductAry as $data ) {
+if($productSelectsAry){
+	$productSelectsAry = json_decode(json_encode($productSelectsAry), true);
+	$productSelectsAry = array_column($productSelectsAry, 'product_related_id');
+}
+foreach($relatedProductAry as $data){
 	$isTypSelt = in_array($data->product_id, $productSelectsAry) ? 'selected' : '';
 	$relatedPrdctList .= '<option '.$isTypSelt.' value="' . $data->product_id . '">' . $data->name . '</option>';
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,7 +56,8 @@ foreach ( $relatedProductAry as $data ) {
 	<title>
 		<?=$typeLbl?> Product | POCHI Admin</title>
 	<link href="<?=$iURL_assets?>admin/js/dropify/dist/css/dropify.min.css" rel="stylesheet" type="text/css"/>
-	<?php include('includes/styles.php'); ?>
+	<link rel="stylesheet" href="<?=$iURL_adminAssts?>js/zTreeStyle/zTreeStyle.css" type="text/css">
+	<?php include('includes/styles.php'); ?>	
 </head>
 
 <body class="no-skin">
@@ -156,10 +161,9 @@ foreach ( $relatedProductAry as $data ) {
 													<div class="form-group col-md-12">
 														<label>Category</label>
 														<div class="catPanLstng">
-															<input type="hidden" class="catValID" name="category" value="<?=end($catSelctIDs)['category_id'] ? :0?>"/>
-															<?php
-
-															?>
+															<div class="zTreeDemoBackground left">
+																<ul id="treeDemo" class="ztree"></ul>
+															</div>
 														</div>
 													</div>
 													<div class="form-group dropyCHet col-sm-12">
@@ -239,6 +243,7 @@ foreach ( $relatedProductAry as $data ) {
 	<!-- basic scripts -->
 	<script src="<?=$iURL_assets?>admin/js/dropify/dist/js/dropify.min.js"></script>
 	<?php include('includes/scripts.php')?>
+	<script type="text/javascript" src="<?=$iURL_assets?>admin/js/zTreeStyle/jquery.ztree.all.min.js"></script>
 	<script src="<?=$iURL_assets?>admin/js/custom.js"></script>
 	<script>
 		$( document ).ready( function () {
@@ -259,6 +264,60 @@ foreach ( $relatedProductAry as $data ) {
 			showDropdowns: true,
 		} );
 	</script>
-</body>
+	
+	<script>		
+		var setting = {
+			check: {
+				enable: true,
+				chkboxType: { "Y" : "", "N" : "" }
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			}
+		};
+		
+		$(document).ready(function(){
+			var dataString = {
+				pid: "<?=$ePID?>",
+			};
+			
+			$.ajax({
+				url: admin_url+"products/getCategoryList",
+				dataType: 'json',
+				type: "POST",
+				data: dataString,
+				beforeSend: function () {
+					showLoader();
+				},
+				success: function (obj) {
+					treeObj = $.fn.zTree.init($("#treeDemo"), setting, obj);
+					var nodes = treeObj.getCheckedNodes(true);
+					var parentNode = '';
+					$.each(nodes, function( index, value ){
+						parentNode = nodes[index].getParentNode();
+						treeObj.expandNode(parentNode, true, false, false);
+						if(parentNode){
+							var i = 10;
+							do{
+								parentNode = parentNode.getParentNode();
+								if(parentNode){
+									treeObj.expandNode(parentNode, true, false, false);
+								}
+							}
+							while (parentNode);
+						}
+					});
 
+				},
+				error: function () {
+					csrfError();
+				},
+			});
+		});
+		
+		
+	</script>	
+</body>
 </html>

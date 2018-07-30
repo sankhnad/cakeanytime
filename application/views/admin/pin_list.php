@@ -107,10 +107,7 @@
 						?>
 					</select>
 				  </div>
-				  <div class="form-group">
-					<label>PIN Code</label>
-					<input type="text" name="name" class="form-control" placeholder="Enter Pin Code" required>
-				  </div>
+				  <div class="multiAddLocalCon"></div>
 				</div>
 				<div class="modal-footer">
 				  <button type="button" class="btn btn-inverse" data-dismiss="modal">Cancel</button>
@@ -134,6 +131,7 @@
 			ajaxPageTarget('data_table', 'location', 'pin_list' );
 		}
 		filterRecord();
+		addRemoveLocaInput(this, 'add', 'pin');
 	</script>
 </body>
 

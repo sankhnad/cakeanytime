@@ -93,10 +93,7 @@
 				  <h4 class="modal-title"><span class="acnLbl"></span> State</h4>
 				</div>
 				<div class="modal-body">
-				  <div class="form-group">
-					<label>State Name</label>
-					<input type="text" name="name" class="form-control" placeholder="Enter State Name">
-				  </div>
+				  <div class="multiAddLocalCon"></div>
 				</div>
 				<div class="modal-footer">
 				  <button type="button" class="btn btn-inverse" data-dismiss="modal">Cancel</button>
@@ -122,6 +119,7 @@
 			ajaxPageTarget('data_table', 'location', 'state_list' );
 		}
 		filterRecord();
+		addRemoveLocaInput(this, 'add', 'state');
 	</script>
 </body>
 
