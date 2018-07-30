@@ -243,7 +243,9 @@ class Products extends CI_Controller {
 			$id = $this->common_model->saveData('product', $data);			
 			$status = 'added';
 			$id = encode($id);
+			
 		}
+		
 		
 		if($type){
 			foreach($type as $typeData){

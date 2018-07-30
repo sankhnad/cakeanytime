@@ -154,7 +154,7 @@ foreach($relatedProductAry as $data){
 												<div class="col-sm-4">
 													<div class="form-group col-md-12">
 														<label class="required">Type</label>
-														<select class="selectpicker" name="type[]" multiple title="Select Type" data-live-search="true" data-size="5" required data-width="100%" required>
+														<select class="selectpicker" name="type[]" multiple title="Select Type" data-live-search="true" data-size="5"  data-width="100%" required>
 															<?=$typeList?>
 														</select>
 													</div>
@@ -210,7 +210,7 @@ foreach($relatedProductAry as $data){
 													</div>
 													<div class="form-group col-md-4">
 														<label class="required">Related Product</label>
-														<select class="selectpicker" multiple name="relatedProducts[]" title="Select Producst" data-live-search="true" data-selected-text-format="count" data-size="5" multiple data-actions-box="true" data-width="100%">
+														<select class="selectpicker" multiple name="relatedProducts[]" title="Select Producst" data-live-search="true" data-selected-text-format="count" data-size="5"  data-actions-box="true" data-width="100%">
 															<?=$relatedPrdctList?>
 														</select>
 													</div>

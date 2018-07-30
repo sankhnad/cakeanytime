@@ -38,7 +38,7 @@
 							<div class="headPageA">
 								<div class="titleAre"><i class="fas fa-users"></i> City List</div>
 								<div class="buttonAre">
-									<button data-toggle="modal" data-target="#locationAddEdit" class="btn btn-primary"><i class="ace-icon fas fa-plus"></i> Add City</i></button>
+									<button onClick="editLocation(this,'','city')" class="btn btn-primary"><i class="ace-icon fas fa-plus"></i> Add City</i></button>
 								</div>
 							</div>
 							<div class="hr dotted hr-double"></div>
@@ -92,20 +92,24 @@
 				<input type="hidden" name="cid" />
 				<div class="modal-header">
 				  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				  <h4 class="modal-title">Add New State</h4>
+				  <h4 class="modal-title"><span class="acnLbl"></span> City</h4>
 				</div>
 				<div class="modal-body">
 				    <div class="form-group">
 					<label>State List</label>
 					<select class="selectpicker" data-width="100%" name="sid" title="Select State" data-live-search="true" required>
                        <?php $statList = ''; foreach($stateAry as $stateData){
-							$statList .= '<option value="'.encode($stateData->sid).'">'.$stateData->stateName.'</option>';
+					   		
+							$encrptIDState = encode($stateData->sid);
+							$isStateSelct = $eID == $encrptIDState ? 'selected' : '';
+							$statList .= '<option '.$isStateSelct.' value="'.$encrptIDState.'">'.$stateData->stateName.'</option>';
 						}
 						echo $statList;
 						?>
 					</select>
 				  </div>
-					<div class="multiAddLocalCon"></div>
+				  <div class="multiAddLocalCon"></div>
+
 				</div>
 				<div class="modal-footer">
 				  <button type="button" class="btn btn-inverse" data-dismiss="modal">Cancel</button>
@@ -125,6 +129,7 @@
 			filterData = {
 				"filter_date": $( 'input.filter_date' ).val(),
 				"filter_status": $( 'select.filter_status' ).val(),
+				"filter_sid": '<?=$eID?>',
 			};
 			ajaxPageTarget('data_table', 'location', 'city_list' );
 		}

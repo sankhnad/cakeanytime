@@ -38,7 +38,7 @@
 							<div class="headPageA">
 								<div class="titleAre"><i class="fas fa-users"></i> PIN Code List</div>
 								<div class="buttonAre">
-									<button data-toggle="modal" data-target="#locationAddEdit" class="btn btn-primary"><i class="ace-icon fas fa-plus"></i> Add PIN Code</i></button>
+									<button onClick="editLocation(this,'','pin')" class="btn btn-primary"><i class="ace-icon fas fa-plus"></i> Add PIN Code</i></button>
 								</div>
 							</div>
 							<div class="hr dotted hr-double"></div>
@@ -93,13 +93,14 @@
 				<input type="hidden" name="pin" />
 				<div class="modal-header">
 				  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				  <h4 class="modal-title">Add New PIN Code</h4>
+				  <h4 class="modal-title"><span class="acnLbl"></span> PIN Code</h4>
 				</div>
 				<div class="modal-body">
 				  <div class="form-group">
 					<label>State List</label>
 					<select class="selectpicker" data-width="100%" name="sid" title="Select State" data-live-search="true" required>
-                       <?php $statList = ''; foreach($stateAry as $stateData){
+                       <?php $statList = ''; 
+					   		foreach($stateAry as $stateData){
 							$statList .= '<option value="'.encode($stateData->sid).'">'.$stateData->stateName.'</option>';
 						}
 						echo $statList;
