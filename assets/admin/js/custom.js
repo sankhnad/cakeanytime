@@ -499,7 +499,7 @@ function editLocation(selfObj, id, type) {
 				$('select[name="sid"]').val(data[0].fld_sid);
 				getLocationData(data[0].fld_sid, 'city', '', data[0].fld_cid);
 			}else if (type == 'pin') {
-				$('select[name="sid"]').val(data.sid);
+				$('select[name="cid"]').val(data.sid);
 				$('input[name="pid"]').val(data.pid);
 				$('input[name="name"]').val(data.pin);
 			}
@@ -3255,4 +3255,28 @@ $(document).on("submit", "#editNewType", function (e) {
 	});
 });
 
+$(document).on("submit", "#editNewPin", function (e) {
+	e.preventDefault();
+	var id = $('input[name="pin"]').val();
+	if (id != '') {
+		var msg = 'updated';
+	} else {
+		var msg = 'added';
+	}
+	$.ajax({
+		url: admin_url + 'location/addEditPin',
+		dataType: 'json',
+		type: 'POST',
+		data: new FormData(this),
+		processData: false,
+		contentType: false,
+		success: function (data) {
+			timerAlert('Successfull!', 'Successfully ' + msg, 'reload');
+		},
+		error: function () {
+			csrfError();
+		}
+	});
+});
 
+	

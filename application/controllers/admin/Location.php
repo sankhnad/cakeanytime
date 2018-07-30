@@ -272,7 +272,7 @@ class Location extends CI_Controller {
 	function pin($eID=''){
 		$data['activeMenu'] = 'location';
 		$data['activeSubMenu'] = 'pin';
-		$data['stateAry'] = $this->common_model->getAll('stateName, sid', 'location_state', array('isDeleted'=>'1','status'=>'1'));
+		$data['cityAry'] = $this->common_model->getAll('cityName, cid', 'location_city', array('isDeleted'=>'1','status'=>'1'));
 
 		$this->load->view('admin/pin_list', $data);
 	}
@@ -386,19 +386,19 @@ class Location extends CI_Controller {
 		if(!$this->input->is_ajax_request() || !AID ) {
 			exit( 'Unauthorized Access!!' );
 		}
-		$id = decode($this->input->post('cid'));
-		$sid = decode($this->input->post('sid'));
+		$id = decode($this->input->post('pid'));
+		$cid = decode($this->input->post('cid'));
 		$name = $this->input->post('name');
 		
 		$data = array(
-			'cityName'=>$name,
-			'sid'=>$sid
+			'pin'=>$name,
+			'cid'=>$cid
 		);
 		if($id){			
-			$id = $this->common_model->updateData('location_city', array('cid'=>$id), $data);
+			$id = $this->common_model->updateData('location_pin', array('pid'=>$id), $data);
 		}else{
 			$data['created_on'] = date("Y-m-d H:i:s", time());
-			$id = $this->common_model->saveData( "location_city", $data );
+			$id = $this->common_model->saveData( "location_pin", $data );
 		}
 		echo json_encode( array( 'status' => true ) );
 	}

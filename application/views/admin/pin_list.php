@@ -97,13 +97,13 @@
 				</div>
 				<div class="modal-body">
 				  <div class="form-group">
-					<label>State List</label>
-					<select class="selectpicker" data-width="100%" name="sid" title="Select State" data-live-search="true" required>
-                       <?php $statList = ''; 
-					   		foreach($stateAry as $stateData){
-							$statList .= '<option value="'.encode($stateData->sid).'">'.$stateData->stateName.'</option>';
+					<label>City List</label>
+					<select class="selectpicker" data-width="100%" name="cid" title="Select City" data-live-search="true" required>
+                       <?php $cityList = ''; 
+					   		foreach($cityAry as $cityData){
+							$cityList .= '<option value="'.encode($cityData->cid).'">'.$cityData->cityName.'</option>';
 						}
-						echo $statList;
+						echo $cityList;
 						?>
 					</select>
 				  </div>
