@@ -1,3 +1,10 @@
+$('.manualREvBoxBtn').click(function(){
+	$('.manualReviewFomCnt').slideDown();
+	$('.resetBtnRevewi').show();
+   $(this).html('<i class="fas fa-plus"></i> Manual Review');
+   $(this).html('<i class="fas fa-plus"></i> Add Review');
+	
+}); 
 if($(".summernote").length){
 	$('.summernote').summernote({
 	  height: 200,
@@ -39,7 +46,6 @@ function addRemoveLocaInput(selfObj, type, location){
 	$('.multiAddLocalCon').append(globalInputBox);
 	processTooltip();
 }
-
 
 function setDefaultAddress(selfObj, aid, cid) {
 	var dataString = {
@@ -210,6 +216,7 @@ function getZipData(pinCode) {
 		}
 	});
 }
+
 function manageAddressPan() {
 	$('.addressAreaContnr').slideDown(function () {
 		$('html, body').animate({
@@ -360,6 +367,7 @@ function changeCatStatus(selfObj, id, type, target){
 		});
 	}
 }
+
 function storeCatSorting() {
 	swal({
 		title: "Are you sure?",
@@ -845,9 +853,6 @@ function getCustomEmailSMSTemplate(id, type) {
 }
 
 function getEmailSMSTemplate(id) {
-	//emailTempID
-	//smsTempID
-	//isTempUpdT
 	var type = $('#sendMessageToCust input[name="type"]').val();
 	if (id == 'add') {
 		if (type == '2') {
@@ -1151,7 +1156,6 @@ $(document).on("submit", "#userProfileAddEdit", function (e) {
 		}
 	});
 });
-
 
 function customerQuickView(cid) {
 	var dataString = {
@@ -2765,7 +2769,6 @@ function ajaxPageTarget(tblName, page, fn) {
 	});
 }
 
-// customer group form submit
 $(document).on("submit", "#editNewGroup", function (e) {
 	e.preventDefault();
 	var id = $('input[name="cgid"]').val();
@@ -2792,7 +2795,6 @@ $(document).on("submit", "#editNewGroup", function (e) {
 		}
 	});
 });
-
 
 function editGroup(selfObj, id, type) {
 	var dataString = {
@@ -2830,7 +2832,6 @@ function editGroup(selfObj, id, type) {
 		},
 	});
 }
-
 
 function changeStatus(selfObj, id, type, target) {
     if (target == 'groups') {
@@ -2916,7 +2917,7 @@ function changeStatus(selfObj, id, type, target) {
             }
         }
 }
-// Vendor QuickView
+
 function vendorQuickView(aid) {
 	var dataString = {
 		aid: aid,
@@ -2949,7 +2950,6 @@ function vendorQuickView(aid) {
 	});
 }
 
-// vendor form submit
 $(document).on("submit", "#editNewVendor", function (e) {
 	e.preventDefault();
 	var id = $('input[name="vid"]').val();
@@ -2979,7 +2979,6 @@ $(document).on("submit", "#editNewVendor", function (e) {
 	});
 });
 
-// oupon submit
 $(document).on("submit", "#editNewCoupon", function (e) {
 	e.preventDefault();
 	var id = $('input[name="cid"]').val();
@@ -3009,9 +3008,7 @@ $(document).on("submit", "#editNewCoupon", function (e) {
 	});
 });
 
-
 function showType(slctVAl){
-
 	if(slctVAl){
 		$('.listLvlStateData').removeClass('hide');
 	}
@@ -3120,7 +3117,6 @@ function getCategoryChieldCoupan(selfObj, targetVl) {
 
 }
 
-
 function getCategoryChield(id, targetVl) {
 	targetVl = targetVl + 1;
 	var dataString = {
@@ -3223,6 +3219,7 @@ function generateURLSlug(val, type) {
 		},
 	});
 }
+
 function clonePricingProduct(type, selfObj){
 	if(type){
 		$('.spacalPriceW').append('<li>'+$('.priceClass').html()+'</li>');

@@ -17938,13 +17938,11 @@ table.fixTblShort thead .sorting::after, table.fixTblShort thead .sorting_asc::a
   position: absolute;
   top: -1px;
 }
-<<<<<<< HEAD
 
 .custmBPls {
   border-width: 1px;
   margin-left: -20px;
-  }
-<!--======= -->
+}
 .helpIconT {
   color: #438eb9;
   cursor: help;
@@ -18032,5 +18030,7 @@ table.fixTblShort thead .sorting::after, table.fixTblShort thead .sorting_asc::a
 	position: absolute;
 	top: 25px;
 	right: 0;
->>>>>>> 2b98ab7947c9af6467fde2874ff7ad34d596fd64
+}
+.manualReviewFomCnt, .boxRevewcontinerList, .resetBtnRevewi{
+	display: none;
 }

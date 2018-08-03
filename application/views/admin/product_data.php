@@ -57,6 +57,7 @@ foreach($relatedProductAry as $data){
 		<?=$typeLbl?> Product | POCHI Admin</title>
 	<link href="<?=$iURL_assets?>admin/js/dropify/dist/css/dropify.min.css" rel="stylesheet" type="text/css"/>
 	<link rel="stylesheet" href="<?=$iURL_adminAssts?>js/zTreeStyle/zTreeStyle.css" type="text/css">
+	<link rel="stylesheet" href="<?=$iURL_adminAssts?>js/rateyo-rating/jquery.rateyo.css" type="text/css">
 	<?php include('includes/styles.php'); ?>	
 </head>
 
@@ -80,11 +81,9 @@ foreach($relatedProductAry as $data){
 								<?=$typeLbl?>Product</a>
 						</li>
 					</ul>
-					<!-- /.breadcrumb -->
 					<div class="nav-search">
 						<i>Last Login : <?=lastLogin(AID);?></i>
 					</div>
-					<!-- /.nav-search -->
 				</div>
 				<div class="page-content">
 					<div class="row">
@@ -134,7 +133,7 @@ foreach($relatedProductAry as $data){
 														<span class="help-block slugErr"> This URL slug is not available </span>
 													</div>
 													<div class="form-group col-md-6">
-														<label>Product Tag</label>														
+														<label>Product Tag</label>
 														<div class="bootInputTag validEmailTag">
 															<input name="cc" type="text" class="form-control bccEmailBx" />
 														</div>
@@ -542,28 +541,77 @@ foreach($relatedProductAry as $data){
 											</div>
 											<div class="clearfix"></div>
 										</div>
-										<div id="reviewTab" class="tab-pane ">											
-											<div class="form-group col-md-4">
-												<label>Full Name</label>
-												<input type="text" name="review_name" class="form-control" placeholder="Enter Full Name" required/>
+										<div id="reviewTab" class="tab-pane">
+											<div class="manualReviewFomCnt">
+												<div class="col-md-6">
+													<div class="form-group mb0">
+														<label>Review</label>
+														<textarea style="min-height:119px" class="form-control reviewText"></textarea>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="row">
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>Full Name</label>
+																<input type="text" class="form-control reviewerName" placeholder="Enter Full Name" required/>
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>Email</label>
+																<input type="text" class="form-control reviewerEmail" placeholder="Enter Email" required/>
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group mb0">
+																<label>Phone</label>
+																<input type="text" class="form-control reviewerPhone" placeholder="Enter Phone" required/>
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group mb0">
+																<label>Rating</label>
+																<div class="rateyo"></div>
+															</div>
+														</div>
+													</div>
+												</div>
 											</div>
-											<div class="form-group col-md-4">
-												<label>Email</label>
-												<input type="text" name="review_name" class="form-control" placeholder="Enter Email" required/>
-											</div> 
-											<div class="form-group col-md-4">
-												<label>Allow Customer Review</label>
-												<input type="text" name="review_name" class="form-control" placeholder="Enter Email" required/>
-											</div>
-											<div class="form-group col-md-4">
-												<label>Rating</label>
-												<input type="text" name="review_name" class="form-control" placeholder="Exp.: 1, 5, 1.2" required/>
-											</div>
-											<div class="form-group col-md-12">
-												<label>Review</label>
-												<textarea name="desc" class="form-control"><?=$description?></textarea>
+											<div class="col-md-12">
+												<div class="form-group text-center">
+													<label> &nbsp; </label>
+													<div class="clearfix"></div>
+													<button type="button" class="btn btn-inverse resetBtnRevewi"><i class="fas fa-retweet"></i> Reset</button>
+													<button type="button" class="btn btn-primary manualREvBoxBtn"><i class="fas fa-plus"></i> Manual Review</button>
+												</div>
 											</div>
 											<div class="clearfix"></div>
+											<div class="boxRevewcontinerList">
+												<div class="hr dotted hr-double"></div>
+												<table class="table table-striped table-bordered table-hover no-footer">
+													<thead>
+														<tr>
+															<th>Name</th>
+															<th>Email</th>
+															<th>Phone</th>
+															<th>Rating</th>
+															<th>Review</th>
+															<th>Action</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>Sankhnad Mishra</td>
+															<td>info@sankhnad.com</td>
+															<td>8800788992</td>
+															<td>4.5</td>
+															<td>ljskdlfkjsdlksdjflksdjf lskj flsakj fsaldkj f</td>
+															<td>Action</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
 										</div>
 									</div>
 									<div class="row">
@@ -592,6 +640,7 @@ foreach($relatedProductAry as $data){
 	<script src="<?=$iURL_assets?>admin/js/dropify/dist/js/dropify.min.js"></script>
 	<?php include('includes/scripts.php')?>
 	<script type="text/javascript" src="<?=$iURL_assets?>admin/js/zTreeStyle/jquery.ztree.all.min.js"></script>
+	<script type="text/javascript" src="<?=$iURL_adminAssts?>js/rateyo-rating/jquery.rateyo.js"></script>
 	<script src="<?=$iURL_assets?>admin/js/custom.js"></script>
 	<script>
 		$( document ).ready( function () {
@@ -611,9 +660,7 @@ foreach($relatedProductAry as $data){
 			singleDatePicker: true,
 			showDropdowns: true,
 		} );
-	</script>
-	
-	<script>		
+		
 		var setting = {
 			check: {
 				enable: true,
@@ -664,7 +711,7 @@ foreach($relatedProductAry as $data){
 				},
 			});
 		});
-		
+		$(".rateyo").rateYo();
 		
 	</script>	
 </body>
