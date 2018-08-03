@@ -108,16 +108,13 @@ foreach($relatedProductAry as $data){
 										<a data-toggle="tab" href="#imageTab"><i class="green ace-icon fas fa-images bigger-120"></i> Image</a>
 									</li>
 									<li>
-										<a data-toggle="tab" href="#rewardTab"><i class="green ace-icon fas fa-gift bigger-120"></i> Reward</a>
-									</li>
-									<li>
 										<a data-toggle="tab" href="#SEOTab"><i class="green ace-icon fab fa-searchengin bigger-120"></i> SEO</a>
 									</li>
 									<li>
-										<a data-toggle="tab" href="#policyTab"><i class="green ace-icon fas fa-hand-holding-usd bigger-120"></i> Policy</a>
+										<a data-toggle="tab" href="#policyTab"><i class="green ace-icon fas fa-user-secret bigger-120"></i> Policy</a>
 									</li>
 									<li>
-										<a data-toggle="tab" href="#reviewTab"><i class="green ace-icon fas fa-hand-holding-usd bigger-120"></i> Review</a>
+										<a data-toggle="tab" href="#reviewTab"><i class="green ace-icon fas fa-star-half-alt bigger-120"></i> Review</a>
 									</li>
 								</ul>
 								<!-- Tab panes -->
@@ -137,8 +134,10 @@ foreach($relatedProductAry as $data){
 														<span class="help-block slugErr"> This URL slug is not available </span>
 													</div>
 													<div class="form-group col-md-6">
-														<label>Product Tag</label>
-														<input type="text" name="tag" class="form-control" value="<?=$tags?>" placeholder="Comma separated tag"/>
+														<label>Product Tag</label>														
+														<div class="bootInputTag validEmailTag">
+															<input name="cc" type="text" class="form-control bccEmailBx" />
+														</div>
 													</div>
 													<div class="form-group col-md-6">
 														<label>&nbsp;</label>
@@ -178,102 +177,143 @@ foreach($relatedProductAry as $data){
 											</div>
 										</div>
 										<div id="dataTab" class="tab-pane">
-											<div class="row">
-												<div class="col-md-12">
-													<div class="form-group col-md-4">
-														<label>Model</label>
-														<input type="text" name="model" class="form-control" value="<?=$model;?>" placeholder="Enter Product Model Name"/>
-													</div>
-													<div class="form-group col-md-4">
-														<label>SKU</label>
-														<input type="text" name="sku" class="form-control" value="<?=$sku?>" placeholder="Enter SKU Code"/>
-													</div>
-													<div class="form-group col-md-4">
-														<label class="required">Related Product</label>
-														<select class="selectpicker" multiple name="relatedProducts[]" title="Select Producst" data-live-search="true" data-selected-text-format="count" data-size="5"  data-actions-box="true" data-width="100%">
-															<?=$relatedPrdctList?>
-														</select>
-													</div>
-													<div class="form-group col-md-4">
-														<label class="required">Product Stock</label>
-														<input type="text" name="quantity" class="form-control" value="<?=$quentity?>" placeholder="Enter Product Quentity" required/>
-													</div>
-													<div class="form-group col-md-4">
-														<label class="required">Subtract Stock</label>
-														<select class="selectpicker" name="stock" data-width="100%">
-															<option value="1">Yes</option>
-															<option value="0">No</option>
-														</select>
-													</div>
-													<div class="form-group col-md-4">
-														<label class="required">Out Of Stock Status</label>
-														<select class="selectpicker" name="stock" data-width="100%">
-															<option value="0" <?=$outOfStockId=='0' ? 'selected="Selected"': '';?>>2 - 3 Days</option>
-															<option value="1" <?=$outOfStockId=='1' ? 'selected="Selected"': '';?>>In Stock</option>
-															<option value="2" <?=$outOfStockId=='2' ? 'selected="Selected"': '';?>>Out Of Stock</option>
-															<option value="3" <?=$outOfStockId=='3' ? 'selected="Selected"': '';?>>Pre-Order</option>
-														</select>
-													</div>
-													<div class="form-group col-md-4">
-														<label>Date Available</label>
-														<div class="input-group">
-															<input name="date" class="form-control date-picker" value="<?=$availDate?>" type="text" placeholder="dd/mm/yyyy" data-date-format="dd/mm/yyyy"/>
-															<span class="input-group-addon"> <i class="far fa-calendar-alt bigger-110"></i> </span>
-														</div>
-													</div>
-													
-													<div class="form-group col-md-4">
-														<label>Sort Order</label>
-														<input type="text" name="quantity" class="form-control" value="<?=$quentity?>" placeholder="Enter Sort Order" />
+											<div class="col-md-4">
+												<div class="form-group">
+													<label>Model</label>
+													<input type="text" name="model" class="form-control" value="<?=$model;?>" placeholder="Enter Product Model Name"/>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<label>SKU</label>
+													<input type="text" name="sku" class="form-control" value="<?=$sku?>" placeholder="Enter SKU Code"/>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<label>Date Available</label>
+													<div class="input-group">
+														<input name="date" class="form-control date-picker" value="<?=$availDate?>" type="text" placeholder="dd/mm/yyyy" data-date-format="dd/mm/yyyy"/>
+														<span class="input-group-addon"> <i class="far fa-calendar-alt bigger-110"></i> </span>
 													</div>
 												</div>
 											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<label class="required">Product Stock</label>
+													<input type="text" name="quantity" class="form-control" value="<?=$quentity?>" placeholder="Enter Product Quentity" required/>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<label class="required">Subtract Stock</label>
+													<select class="selectpicker" name="stock" data-width="100%">
+														<option value="1">Yes</option>
+														<option value="0">No</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<label class="required">Out Of Stock Status</label>
+													<select class="selectpicker" name="stock" data-width="100%">
+														<option value="0" <?=$outOfStockId=='0' ? 'selected="Selected"': '';?>>2 - 3 Days</option>
+														<option value="1" <?=$outOfStockId=='1' ? 'selected="Selected"': '';?>>In Stock</option>
+														<option value="2" <?=$outOfStockId=='2' ? 'selected="Selected"': '';?>>Out Of Stock</option>
+														<option value="3" <?=$outOfStockId=='3' ? 'selected="Selected"': '';?>>Pre-Order</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group col-md-4">
+													<div class="borderChexBx">
+														<label>Eggless option required?</label>
+														<label class="switchS switchSCuStatus">
+														  <input name="isStatus" value="1" class="switchS-input" checked type="checkbox">
+														  <span class="switchS-label" data-on="Yes" data-off="No"></span> <span class="switchS-handle"></span> 
+														</label>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<div class="borderChexBx">
+														<label>Message option for product?</label>
+														<label class="switchS switchSCuStatus">
+														  <input name="isStatus" value="1" class="switchS-input" type="checkbox" <?=$isStatus == '1' ? 'checked' : ''?> />
+														  <span class="switchS-label" data-on="Yes" data-off="No"></span> <span class="switchS-handle"></span> 
+														</label>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<div class="borderChexBx">
+														<label>Message option for card?</label>
+														<label class="switchS switchSCuStatus">
+														  <input name="isStatus" value="1" class="switchS-input" type="checkbox" <?=$isStatus == '1' ? 'checked' : ''?> />
+														  <span class="switchS-label" data-on="Yes" data-off="No"></span> <span class="switchS-handle"></span> 
+														</label>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<label>Sort Order</label>
+													<input type="text" name="quantity" class="form-control" value="<?=$quentity?>" placeholder="Enter Sort Order" />
+												</div>
+											</div>
+											<div class="clearfix"></div>
 										</div>
 										<div id="priceTab" class="tab-pane ">
 											<table class="table table-striped table-bordered table-hover no-footer">
-													<tr>
-														<th>Quantity Type</th>
-														<th>Quantity</th>
-														<th>Product Price</th>
-														<th>Discount Type</th>
-														<th>Discounted Price</th>
-														<th>Action</th>
-													</tr>
-													<tr>
-														<td>
-															<select class="selectpicker" name="XXXXXXX" title="Quantity Type" data-width="100%">
-																<option>Leeter</option>
-																<option>KG</option>
-																<option>Graam</option>
-															</select>
-														</td>
-														<td>
-															<input type="text" class="form-control" placeholder="Quantity" name="default_reward_point" />
-														</td>
-														<td>
-															<input type="text" class="form-control" placeholder="Product Price" name="default_reward_point" />
-														</td>
-														<td>
-															<select class="selectpicker" name="XXXXXXX" title="Discount Type" data-width="100%">
-																<option>Flat Rate (Rs.)</option>
-																<option>Percentage (%)</option>
-															</select>
-														</td>
-														<td>
-															<input type="text" class="form-control" placeholder="Discounted Price" name="default_reward_point" />
-														</td>
-														<td>
-															<button type="button" class="removeMoreTbl"><i class="fas fa-minus-circle"></i></button>
-														</td>
-													</tr>
-													<tr>
-														<td colspan="5">
-														</td>
-														<td>
-															<button type="button" class="addMoreTbl"><i class="fa fa-plus-circle"></i></button>
-														</td>
-													</tr>
-												</table>
+												<tr>
+													<th>Quantity Type</th>
+													<th>Quantity</th>
+													<th>Product Price</th>
+													<th>Discount Type</th>
+													<th>Discount</th>
+													<th>Reward</th>
+													<th>Action</th>
+												</tr>
+												<tr>
+													<td>
+														<select class="selectpicker" name="XXXXXXX" title="Quantity Type" data-width="100%">
+															<option>Leeter</option>
+															<option>KG</option>
+															<option>Graam</option>
+														</select>
+													</td>
+													<td>
+														<input type="text" class="form-control" placeholder="Quantity" name="default_reward_point" />
+													</td>
+													<td>
+														<input type="text" class="form-control" placeholder="Product Price" name="default_reward_point" />
+													</td>
+													<td>
+														<select class="selectpicker" name="XXXXXXX" title="Discount Type" data-width="100%">
+															<option>Flat Rate (Rs.)</option>
+															<option>Percentage (%)</option>
+														</select>
+													</td>
+													<td>
+														<input type="text" class="form-control" placeholder="Discounted Price" name="default_reward_point" />
+													</td>
+													<td>
+														<input type="text" class="form-control" placeholder="Quantity" name="default_reward_point" />
+													</td>
+													<td>
+														<button type="button" class="removeMoreTbl"><i class="fas fa-minus-circle"></i></button>
+													</td>
+												</tr>
+												<tr>
+													<td colspan="6">
+													</td>
+													<td>
+														<button type="button" class="addMoreTbl"><i class="fa fa-plus-circle"></i></button>
+													</td>
+												</tr>
+											</table>
 											
 											<div class="priceGropCon">
 												<div data-toggle="tooltip" title="Remove Panel" class="removePriceGropBox"><i class="fas fa-times-circle"></i></div>
@@ -295,24 +335,24 @@ foreach($relatedProductAry as $data){
 													<tr>
 														<table class="table table-bordered no-footer mb0">
 															<tr>
-																<th>Group</th>
-																<th>Quantity Type</th>
-																<th>Quantity</th>
-																<th>Price</th>
-																<th>Discount Type</th>
-																<th>Discount</th>
-																<th>Start Date</th>
-																<th>End Date</th>
-																<th class="text-center">Action</th>
+																<th width="15%">Group</th>
+																<th width="15%">Quantity Type</th>
+																<th width="10%">Quantity</th>
+																<th width="10%">Price</th>
+																<th width="15%">Discount Type</th>
+																<th width="10%">Discount</th>
+																<th width="10%">Reward</th>
+																<th width="10%">Status</th>
+																<th width="5%" class="text-center">Action</th>
 															</tr>
 															<tr>
 																<td>
-																	<select class="selectpicker" name="XXXXXXX" multiple title="Select Group" data-live-search="true" data-size="5"  data-width="100%" required>
+																	<select class="selectpicker" name="XXXXXXX" multiple title="Select Group" data-live-search="true" data-size="5"  data-width="fit" required>
 																		<?=$typeList?>
 																	</select>
 																</td>
 																<td>
-																	<select class="selectpicker" name="XXXXXXX" multiple title="Select Quantity" data-live-search="true" data-size="5"  data-width="100%" required>
+																	<select class="selectpicker" name="XXXXXXX" multiple title="Select Quantity" data-live-search="true" data-size="5"  data-width="fit" required>
 																		<option>KG</option>
 																		<option>Litter</option>
 																	</select>
@@ -324,7 +364,7 @@ foreach($relatedProductAry as $data){
 																	<input type="text" class="form-control" placeholder="Price" name="XXXXXXX" />
 																</td>
 																<td>
-																	<select class="selectpicker" name="XXXXXXX" title="Discount Type" data-width="100%" required>
+																	<select class="selectpicker" name="XXXXXXX" title="Discount Type" data-width="fit" required>
 																		<option>Flat Rate (Rs)</option>
 																		<option>Percentage (%)</option>
 																	</select>
@@ -333,20 +373,13 @@ foreach($relatedProductAry as $data){
 																	<input type="text" class="form-control" placeholder="Discount" name="XXXXXXX" />
 																</td>
 																<td>
-																	<div class="input-group">
-																		<input name="XXXXXXXXX" class="form-control date-picker" type="text" placeholder="dd/mm/yyyy" data-date-format="dd/mm/yyyy" />
-																		<span class="input-group-addon">
-																			<i class="far fa-calendar-alt bigger-110"></i>
-																		</span>
-																	</div>
+																	<input type="text" class="form-control" placeholder="Discount" name="XXXXXXX" />
 																</td>
 																<td>
-																	<div class="input-group">
-																		<input name="XXXXXXXXX" class="form-control date-picker" type="text" placeholder="dd/mm/yyyy" data-date-format="dd/mm/yyyy" />
-																		<span class="input-group-addon">
-																			<i class="far fa-calendar-alt bigger-110"></i>
-																		</span>
-																	</div>
+																	<label class="switchS switchSCuStatus">
+																	  <input name="isStatus" value="1" class="switchS-input" checked type="checkbox">
+																	  <span class="switchS-label" data-on="Active" data-off="Inactive"></span> <span class="switchS-handle"></span> 
+																	</label>
 																</td>
 																<td class="text-center">
 																	<button type="button" class="removeMoreTbl"><i class="fas fa-minus-circle"></i></button>
@@ -371,7 +404,7 @@ foreach($relatedProductAry as $data){
 										<div id="imageTab" class="tab-pane ">											
 											<div class="col-sm-3">
 												<div class="form-group">
-													<label>Default Product Image <i data-toggle="tooltip" title="Number of points needed to buy this item. If you don't want this product to be purchased with points leave as 0." class="fas fa-question-circle helpIconT"></i></label>
+													<label> &nbsp;</label>
 													<div class="form-group dropyCHet mb0">
 														<input name="img" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="<?=$iURL_product?><?=$img ? $img : 'default.jpg'?>"/>
 													</div>
@@ -380,42 +413,6 @@ foreach($relatedProductAry as $data){
 											<div class="col-sm-3">
 												<label>&nbsp;</label>
 												<div class="addMoreImagePro"> <i class="fas fa-images"></i> <span>Add More</span> </div>
-											</div>											
-											<div class="clearfix"></div>
-										</div>
-										<div id="rewardTab" class="tab-pane">
-											<div class="col-sm-6 boxDefulRewrrd col-sm-offset-3">
-												<div class="form-group mb0">
-													<label>Default Reward Point <i data-toggle="tooltip" title="Number of points needed to buy this item. If you don't want this product to be purchased with points leave as 0." class="fas fa-question-circle helpIconT"></i></label>
-													<input type="text" class="form-control" placeholder="Add Default Reward Point" name="default_reward_point" />
-												</div>
-											</div>
-											
-											<div class="col-md-12">
-												<table class="table table-striped table-bordered table-hover no-footer">
-													<tr>
-														<th width="35%">Group</th>
-														<th  width="70%">Point</th>
-														<th  width="5%" class="text-center">Action</th>
-													</tr>
-													<tr>
-														<td>
-															<select class="selectpicker" name="reward_group[]" multiple title="Select Group" data-live-search="true" data-size="5"  data-width="100%" required>
-															<?=$typeList?>
-															</select>
-														</td>
-														<td><input type="text" class="form-control" name="reward_point[]" /></td>
-														<td class="text-center">
-															<button type="button" class="removeMoreTbl"><i class="fas fa-minus-circle"></i></button>
-														</td>
-													</tr>
-													<tr>
-														<td colspan="2"></td>
-														<td class="text-center">
-															<button type="button" class="addMoreTbl"><i class="fa fa-plus-circle"></i></button>
-														</td>
-													</tr>
-												</table>
 											</div>											
 											<div class="clearfix"></div>
 										</div>

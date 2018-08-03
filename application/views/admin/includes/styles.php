@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="<?=$iURL_adminAssts?>css/bootstrap-tagsinput.css">
 	<!-- bootstrap & fontawesome -->
 	<link rel="stylesheet" href="<?=$iURL_adminAssts?>css/bootstrap.min.css"/>
-	<link rel="stylesheet" href="<?=$iURL_adminAssts?>font-awesome-5.0.13/css/fontawesome-all.css"/>
+	<link rel="stylesheet" href="<?=$iURL_adminAssts?>fontawesome-free-5.2.0/css/all.css"/>
 
 	<link rel="stylesheet" href="<?=$iURL_adminAssts?>css/datatables.min.css" />
 	
