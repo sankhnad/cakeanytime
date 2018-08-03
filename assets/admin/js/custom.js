@@ -1,3 +1,12 @@
+if($(".summernote").length){
+	$('.summernote').summernote({
+	  height: 200,
+	  codemirror: {
+		theme: 'monokai'
+	  }
+	});
+}
+
 function addRemoveLocaInput(selfObj, type, location){	
 	if(type=='Remove'){
 		$(selfObj).closest('.row').remove();
