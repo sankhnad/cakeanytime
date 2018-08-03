@@ -4,8 +4,6 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 class Products extends CI_Controller {
 	function __construct() {
 		parent::__construct();
-		$this->load->model( 'DataTblModel', 'datatablemodel');
-
 	}
 	
 	function index() {
@@ -143,15 +141,9 @@ class Products extends CI_Controller {
 	}
 	
 	function add(){
-		$catOption[] = $this->common_model->getAll( 'category_id, name, parent_id', 'category', array( 'isDeleted' => '1', 'parent_id' => '0' ), 'sort_order asc' );
-		$productAray = array();
-		$data['typeAry'] 			= $this->common_model->getAll('*', 'type', array('isDeleted'=>1));
-		$data['relatedProductAry']  = $this->common_model->getAll( '*', 'product', array( 'isDeleted' => '1', 'status' => '1' ) );
-		$data['productSelectsAry']  = array();
-		$data['categorySelectsAry'] = array();
-	
-		$data['productAray'] = $productAray;
-		$data['parentArayList'] = $catOption;		
+		$data['typeAry'] = $this->common_model->getAll('*', 'type', array('isDeleted'=>1));
+		$data['relatedProductAry']  = $this->common_model->getAll( '*', 'product', array('isDeleted' => '1', 'status' => '1' ));
+		$data['productSelectsAry'] = $data['categorySelectsAry'] = $data['typeSelectsAry'] = $data['productAray'] = array();
 		$data['ePID'] = '';
 		$data['activeMenu'] = 'store';
 		$data['activeSubMenu'] = 'products';
@@ -168,7 +160,7 @@ class Products extends CI_Controller {
 		$data['typeAry'] 			= $this->common_model->getAll('*', 'type', array('isDeleted'=>'1'));
 		$data['relatedProductAry']  = $this->common_model->getAll( '*', 'product', array( 'isDeleted' => '1', 'status' => '1' ) );
 		$data['productSelectsAry']  = $this->common_model->getAll( '*', 'product_to_related', array( 'product_id' => $id ) );
-		$data['categorySelectsAry'] = $this->common_model->getAll( '*', 'product_to_category', array('product_id' => $id ) );
+		
 		$data['typeSelectsAry'] 	= $this->common_model->getAll( '*', 'product_to_type', array('product_id' => $id ) );
 
 		
@@ -186,6 +178,7 @@ class Products extends CI_Controller {
 		if ( !$this->input->is_ajax_request() || !AID ) {
 			exit( 'Unauthorized Access' );
 		}
+		
 		$pid			= decode($this->input->post('pid'));
 		$name 			= trim($this->input->post('name'));
 		$slug 			= $this->input->post('url_slug');
@@ -201,8 +194,8 @@ class Products extends CI_Controller {
 		$metaDesc 		= trim($this->input->post('meta_desc'));
 		$metaKey 		= trim($this->input->post('meta_keywords'));
 		$status 		= $this->input->post( 'isStatus' ) ? $this->input->post( 'isStatus' ) : '0';
-		
-		$categoryArr		= $this->input->post('category');
+		$category		= $this->input->post('category');
+		$categoryArr	= explode(',', $category);
 		$relatedProductsArr	= $this->input->post('relatedProducts');
 				
 		
@@ -250,7 +243,9 @@ class Products extends CI_Controller {
 			$id = $this->common_model->saveData('product', $data);			
 			$status = 'added';
 			$id = encode($id);
+			
 		}
+		
 		
 		if($type){
 			foreach($type as $typeData){
@@ -329,5 +324,31 @@ class Products extends CI_Controller {
 		}else{
 			return($result);
 		}		
+	}
+	
+	function getCategoryList(){
+		$categoryObj = $this->common_model->getAll( 'category_id, name, parent_id', 'category', array( 'isDeleted' => '1'), 'sort_order asc' );
+		$pid = decode($this->input->post('pid'));
+		$categorySelectsAry = $data = array();
+		if($pid){
+			$categorySelectsAry = $this->common_model->getAll( 'category_id', 'product_to_category', array('product_id' => $pid) );
+			$categorySelectsAry = json_decode(json_encode($categorySelectsAry), true);
+			$categorySelectsAry = array_column($categorySelectsAry, 'category_id');
+		}
+		
+		$k = 0;
+		foreach($categoryObj as $category){
+			$data[$k] = array(
+				'id' => $category->category_id,
+				'pId' =>  $category->parent_id,
+				'name' =>  $category->name,
+			);
+			if(in_array($category->category_id, $categorySelectsAry)){
+				//$data[$k]['open'] = true;
+				$data[$k]['checked'] = true;
+			}
+			$k++;
+		}
+		echo json_encode($data);
 	}
 }

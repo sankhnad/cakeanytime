@@ -35,7 +35,7 @@
 							<div class="headPageA">
 								<div class="titleAre"><i class="fas fa-users"></i> Area List</div>
 								<div class="buttonAre">
-									<button class="btn btn-primary"><i class="ace-icon fas fa-plus"></i> Add Area</i></button>
+									<button onClick="editLocation(this,'','area')" class="btn btn-primary"><i class="ace-icon fas fa-plus"></i> Add Area</i></button>
 								</div>
 							</div>
 							<div class="hr dotted hr-double"></div>
@@ -72,6 +72,43 @@
 			</div>
 		</div>
 		<!-- /.main-content -->
+		
+		<!-- Modal:  Add Edit Area Modal  -  Modal -->
+		<div id="locationAddEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+			<div class="modal-content">
+			  <form id="editNewPin">
+				<input type="hidden" name="pin" />
+				<div class="modal-header">
+				  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				  <h4 class="modal-title"><span class="acnLbl"></span> Area</h4>
+				</div>
+				<div class="modal-body">
+				  <div class="form-group">
+					<label>Pin Code List</label>
+					<select class="selectpicker" data-width="100%" name="sid" title="Select Pin Code" data-live-search="true" required>
+                       <?php $pinList = ''; 
+					   		foreach($pinAry as $pinData){
+							$pinList .= '<option value="'.encode($pinData->pin).'">'.$pinData->pin.'</option>';
+						}
+						echo $pinList;
+						?>
+					</select>
+				  </div>
+				  <div class="form-group">
+					<label>Area Name</label>
+					<input type="text" name="name" class="form-control" placeholder="Enter Area Name" required>
+				  </div>
+				</div>
+				<div class="modal-footer">
+				  <button type="button" class="btn btn-inverse" data-dismiss="modal">Cancel</button>
+				  <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Submit</button>
+				</div>
+			  </form>
+			</div>
+		  </div>
+		</div>
+
 		<?php include('includes/footer.php')?>
 	</div>
 	<!-- basic scripts -->
@@ -85,6 +122,7 @@
 			ajaxPageTarget('data_table', 'location', 'area_list' );
 		}
 		filterRecord();
+		addRemoveLocaInput(this, 'add', 'area');
 	</script>
 </body>
 

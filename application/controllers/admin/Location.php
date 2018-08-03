@@ -42,7 +42,7 @@ class Location extends CI_Controller {
 		
 		$aColumns=array(
 			'stateName',
-			'(SELECT COUNT(*) FROM location_city WHERE sid = location_state.sid) AS totalCity',
+			'(SELECT COUNT(*) FROM location_city WHERE sid = location_state.sid AND isDeleted = 1) AS totalCity',
 			'created_on',
 			'status',
 			'sid',
@@ -135,6 +135,7 @@ class Location extends CI_Controller {
 	function city($eID=''){
 		$data['activeMenu'] = 'location';
 		$data['activeSubMenu'] = 'city';
+		$data['eID'] = $eID;
 		$data['stateAry'] = $this->common_model->getAll('stateName, sid', 'location_state', array('isDeleted'=>'1'));
 		$this->load->view('admin/city_list', $data);
 	}
@@ -153,6 +154,11 @@ class Location extends CI_Controller {
 						$inData .= ' AND a.status IN("'.implode('","', $inDataVal).'")';
 					}
 				}
+				if ( $inDataKey == 'filter_sid' ) {
+					if($inDataVal){
+						$inData .= ' AND a.sid  = "'.decode($inDataVal).'"';
+					}
+				}
 				if($inDataKey == 'filter_date'){
 					if($inDataVal){
 						$tempDate = convertToSQLDate($inDataVal);
@@ -169,7 +175,7 @@ class Location extends CI_Controller {
 		$aColumns=array(
 			'a.cityName',
 			'b.stateName', 
-			'(SELECT COUNT(pid) FROM location_pin as c WHERE c.cid = a.cid) AS totalPin',
+			'(SELECT COUNT(pid) FROM location_pin as c WHERE c.cid = a.cid AND isDeleted = 1) AS totalPin',
 			'a.created_on',
 			'a.status',
 			'a.cid',
@@ -266,6 +272,8 @@ class Location extends CI_Controller {
 	function pin($eID=''){
 		$data['activeMenu'] = 'location';
 		$data['activeSubMenu'] = 'pin';
+		$data['cityAry'] = $this->common_model->getAll('cityName, cid', 'location_city', array('isDeleted'=>'1','status'=>'1'));
+
 		$this->load->view('admin/pin_list', $data);
 	}
 	
@@ -378,19 +386,19 @@ class Location extends CI_Controller {
 		if(!$this->input->is_ajax_request() || !AID ) {
 			exit( 'Unauthorized Access!!' );
 		}
-		$id = decode($this->input->post('cid'));
-		$sid = decode($this->input->post('sid'));
+		$id = decode($this->input->post('pid'));
+		$cid = decode($this->input->post('cid'));
 		$name = $this->input->post('name');
 		
 		$data = array(
-			'cityName'=>$name,
-			'sid'=>$sid
+			'pin'=>$name,
+			'cid'=>$cid
 		);
 		if($id){			
-			$id = $this->common_model->updateData('location_city', array('cid'=>$id), $data);
+			$id = $this->common_model->updateData('location_pin', array('pid'=>$id), $data);
 		}else{
 			$data['created_on'] = date("Y-m-d H:i:s", time());
-			$id = $this->common_model->saveData( "location_city", $data );
+			$id = $this->common_model->saveData( "location_pin", $data );
 		}
 		echo json_encode( array( 'status' => true ) );
 	}
@@ -398,6 +406,9 @@ class Location extends CI_Controller {
 	function area($eID=''){
 		$data['activeMenu'] = 'location';
 		$data['activeSubMenu'] = 'area';
+		$data['pinAry'] = $this->common_model->getAll('pin', 'location_pin', array('isDeleted'=>'1','status'=>'1'));
+		
+
 		$this->load->view('admin/area_list', $data);
 	}
 	
@@ -583,7 +594,7 @@ class Location extends CI_Controller {
 			$select = 'c.pid, b.cid, a.sid, c.pin';
 			$table = 'location_pin';
 			$where = array(
-				'c.pid'=>$id,
+				'c.pin'=>$id,
 				'c.isDeleted'=>'1'
 			);
 			$objData = $this->manual_model->getLocationData($select, $where, 'pin');

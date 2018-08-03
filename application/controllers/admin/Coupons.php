@@ -19,15 +19,13 @@ class Coupons extends CI_Controller {
 		$catOption[]  = $this->common_model->getAll('category_id, name, parent_id', 'category', array('isDeleted'=>'1','status'=>'1','parent_id'=>'0'), 'sort_order asc');
 		$data['parentArayList'] = $catOption;		
 		$data['groupAry'] 		= $this->common_model->getAll('*', 'customer_group', array('isDeleted'=>'1', 'status'=>'1'));
-		//$data['productAry'] 	= $this->common_model->getAll('*', 'product', array('isDeleted'=>'1', 'status'=>'1'));
-		$data['productAry'] 	= '';
+		$data['productAry'] 	= $this->common_model->getAll('*', 'product', array('isDeleted'=>'1', 'status'=>'1'));
 
 		$data['coupanDisAry'] 	= $coupanDisAry;
-		$data['cid'] 			= '';
-		$data['prdctIds'] 		= '';
-		$data['catIds'] 		= '';
+		$data['prdctIds'] 		= array();
+		$data['catIds'] 		= array();
 		$data['groupIds'] 		= array();
-		
+		$data['cid'] 			= '';
 		$this->load->view( 'admin/coupon_add', $data);
 	}
 
@@ -57,18 +55,17 @@ class Coupons extends CI_Controller {
 		$data = array();
 		$data['parentArayList'] = $catOption;		
 		$data['groupAry'] 		= $this->common_model->getAll('*', 'customer_group', array('isDeleted'=>'1', 'status'=>'1'));
-		//$data['productAry'] 	= $this->common_model->getAll('*', 'tbl_product', array('isDeleted'=>'1', 'status'=>'1'));
+		$data['productAry'] 	= $this->common_model->getAll('*', 'product', array('isDeleted'=>'1', 'status'=>'1'));
 		$data['coupanDisAry'] 	= $coupanDisAry;
 		$data['cid'] 			= $encriptedID;
-		//$data['prdctIds'] 		= $prdctIds;
-		$data['prdctIds'] 		= '';
+		$data['prdctIds'] 		= $prdctIds;
 		$data['catIds'] 		= $catIds;
 		$data['groupIds'] 		= $groupIds;
-		
 		$this->load->view( 'admin/coupon_add', $data);
 	}
 
 	function storeCoupon() {
+	
 		if(!$this->input->is_ajax_request() || !AID ) {
 			exit( 'No direct script access allowed' );
 		}
@@ -80,8 +77,8 @@ class Coupons extends CI_Controller {
 		$type		= $this->input->post('type');
 		$discount 	= $this->input->post('discount');
 		$tAmnt 		= $this->input->post('tAmnt');
-		$eDate 		= $this->input->post('eDate');
-		$sDate 		= $this->input->post('sDate');
+		$eDate 		= $this->input->post('eDate') ? convertData($this->input->post('eDate')) : NULL;
+		$sDate 		= $this->input->post('sDate') ? convertData($this->input->post('sDate')) : NULL;
 		$pCoupan 	= $this->input->post('pCoupan');
 		
 		$pCoustomer = $this->input->post('pCoustomer');
@@ -98,10 +95,10 @@ class Coupons extends CI_Controller {
 			'type'	=> $type,
 			'discount'=> $discount,
 			'total'=> $tAmnt,
-			'date_start'=> convertData($sDate),
-			'date_end'=> convertData($eDate),
-			'uses_total '=> $pCoupan,
-			'uses_customer '=> $pCoustomer,
+			'date_start'=> $sDate,
+			'date_end'=> $eDate,
+			'uses_total'=> $pCoupan,
+			'uses_customer'=> $pCoustomer,
 			'status'=> $status ? $status : 1,
 		);
 		
@@ -139,6 +136,7 @@ class Coupons extends CI_Controller {
 		}
 		else{
 			$data['created_on'] = date( "Y-m-d H:i:s", time() );
+			
 			$cupId = $this->common_model->saveData( "coupon", $data );
 			
 			if($cupId){
@@ -282,9 +280,11 @@ class Coupons extends CI_Controller {
 				$offLbl = 'Inactive';
 			}
 			
-			$status = '<div onClick="changeStatus(this,\''.$id.'\',\'admin\')" data-state="'.$offLbl.'" class="swithAraBoxBefre"><label class="switchS switchSCuStatus">
-						  <input name="verifiedEmail" value="1" class="switchS-input" type="checkbox" '.$isActivCheck.' />
+						  
+			$status = '<div data-status="'.$aRow['status'].'" onClick="changeStatus(this, \''.$id.'\', \'status\', \'coupan\')" data-state="'.$offLbl.'" class="swithAraBoxBefre"><label class="switchS switchSCuStatus">
+						  <input name="verifiedEmail" data-statusid="'.$id.'" value="1" class="switchS-input" type="checkbox" '.$isActivCheck.' />
 						  <span class="switchS-label" data-on="Active" data-off="'.$offLbl.'"></span> <span class="switchS-handle"></span> </label></div>';
+
 			
 			if($aRow['type'] == '1'){
 				$discountType = 'Percentage';
