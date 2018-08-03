@@ -1,10 +1,52 @@
+function resetManulReviewForm(){
+	$('.reviewText').val('');
+	$('.reviewerName').val('');
+	$('.reviewerEmail').val('');
+	$('.reviewerPhone').val('');
+	$('.reviewerRatingValue').val('');
+	$(".reviewerRating").rateYo("rating", '0');
+}
+$('.resetBtnRevewi').click(function(){
+	resetManulReviewForm()
+});
+
+
 $('.manualREvBoxBtn').click(function(){
 	$('.manualReviewFomCnt').slideDown();
-	$('.resetBtnRevewi').show();
-   $(this).html('<i class="fas fa-plus"></i> Manual Review');
-   $(this).html('<i class="fas fa-plus"></i> Add Review');
-	
+	$('.resetBtnRevewi, .addREvBoxBtn').show();
+	$('.manualREvBoxBtn').hide();
 }); 
+
+$('.addREvBoxBtn').click(function(){
+	var reviewText = $('.reviewText').val();
+	var reviewerName = $('.reviewerName').val();
+	var reviewerEmail = $('.reviewerEmail').val();
+	var reviewerPhone = $('.reviewerPhone').val();
+	var reviewerRatingValue = $('.reviewerRatingValue').val();
+	if(!reviewText || !reviewerName || !reviewerEmail || !reviewerRatingValue){
+		swal('Oops..!!', 'Please fill all the required review fields', 'error');
+		return false;
+	}
+	var editAction = '<a class="blue" data-tooltip="tooltip" title="Edit" onClick="deleteCommon(this)" href="javascript:;"> <i class="ace-icon fas fa-pencil-alt bigger-130"></i> </a>';
+	var deleteAction = '<a class="red" data-tooltip="tooltip" title="Delete" onClick="deleteCommon(this)" href="javascript:;"> <i class="ace-icon far fa-trash-alt bigger-130"></i> </a>';
+	$('.boxRevewcontinerList').slideDown();
+	
+	var t = $('.reviewListing').DataTable();
+    t.row.add( [
+		reviewerName,
+		reviewerEmail,
+		reviewerPhone,
+		reviewerRatingValue,
+		reviewText,
+		editAction+' '+deleteAction,
+	]).draw( false );
+	
+	resetManulReviewForm();
+	$('html, body').animate({
+		scrollTop: $(".boxRevewcontinerList").offset().top
+	}, 1000);
+}); 
+
 if($(".summernote").length){
 	$('.summernote').summernote({
 	  height: 200,

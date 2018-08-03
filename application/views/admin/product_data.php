@@ -421,7 +421,6 @@ foreach($relatedProductAry as $data){
 																<option>Special Ocation</option>
 															</select>
 														</td>
-														
 													</tr>
 													<tr>
 														<table class="table table-bordered no-footer mb0">
@@ -477,6 +476,46 @@ foreach($relatedProductAry as $data){
 																</td>
 															</tr>
 															<tr>
+																<td>
+																	<select class="selectpicker" name="XXXXXXX" multiple title="Select Group" data-live-search="true" data-size="5"  data-width="fit" required>
+																		<?=$typeList?>
+																	</select>
+																</td>
+																<td>
+																	<select class="selectpicker" name="XXXXXXX" multiple title="Select Quantity" data-live-search="true" data-size="5"  data-width="fit" required>
+																		<option>KG</option>
+																		<option>Litter</option>
+																	</select>
+																</td>
+																<td>
+																	<input type="text" class="form-control" placeholder="Price" name="XXXXXXX" />
+																</td>
+																<td>
+																	<input type="text" class="form-control" placeholder="Price" name="XXXXXXX" />
+																</td>
+																<td>
+																	<select class="selectpicker" name="XXXXXXX" title="Discount Type" data-width="fit" required>
+																		<option>Flat Rate (Rs)</option>
+																		<option>Percentage (%)</option>
+																	</select>
+																</td>
+																<td>
+																	<input type="text" class="form-control" placeholder="Discount" name="XXXXXXX" />
+																</td>
+																<td>
+																	<input type="text" class="form-control" placeholder="Discount" name="XXXXXXX" />
+																</td>
+																<td>
+																	<label class="switchS switchSCuStatus">
+																	  <input name="isStatus" value="1" class="switchS-input" checked type="checkbox">
+																	  <span class="switchS-label" data-on="Active" data-off="Inactive"></span> <span class="switchS-handle"></span> 
+																	</label>
+																</td>
+																<td class="text-center">
+																	<button type="button" class="removeMoreTbl"><i class="fas fa-minus-circle"></i></button>
+																</td>
+															</tr>
+															<tr>
 																<td colspan="8"></td>
 																<td class="text-center">
 																	<button type="button" class="addMoreTbl"><i class="fa fa-plus-circle"></i></button>
@@ -487,6 +526,136 @@ foreach($relatedProductAry as $data){
 												</table>
 											</div>
 											
+											<div class="priceGropCon">
+												<div data-toggle="tooltip" title="Remove Panel" class="removePriceGropBox"><i class="fas fa-times-circle"></i></div>
+												<table class="table table-bordered no-footer">
+													<tr>
+														<th class="text-right">State</th>
+														<td>
+															<select class="selectpicker" name="XXXXXXX" multiple title="Select State" data-live-search="true" data-size="5"  data-width="100%" required>
+															<?=$typeList?>
+															</select>
+														</td>
+														<th class="text-right">City</th>
+														<td>
+															<select class="selectpicker" name="XXXXXXX" multiple title="Select City" data-live-search="true" data-size="5"  data-width="100%" required>
+															<?=$typeList?>
+															</select>
+														</td>
+														<th class="text-right">Delivery Option</th>
+														<td>
+															<select class="selectpicker" name="XXXXXXX" title="Delivery Option" data-width="100%" multiple>
+																<option>Morning Delivery</option>
+																<option>Standard Delivery</option>
+																<option>Fixed Time</option>
+																<option>Mid-night</option>
+																<option>Special Ocation</option>
+															</select>
+														</td>
+													</tr>
+													<tr>
+														<table class="table table-bordered no-footer mb0">
+															<tr>
+																<th width="15%">Group</th>
+																<th width="15%">Quantity Type</th>
+																<th width="10%">Quantity</th>
+																<th width="10%">Price</th>
+																<th width="15%">Discount Type</th>
+																<th width="10%">Discount</th>
+																<th width="10%">Reward</th>
+																<th width="10%">Status</th>
+																<th width="5%" class="text-center">Action</th>
+															</tr>
+															<tr>
+																<td>
+																	<select class="selectpicker" name="XXXXXXX" multiple title="Select Group" data-live-search="true" data-size="5"  data-width="fit" required>
+																		<?=$typeList?>
+																	</select>
+																</td>
+																<td>
+																	<select class="selectpicker" name="XXXXXXX" multiple title="Select Quantity" data-live-search="true" data-size="5"  data-width="fit" required>
+																		<option>KG</option>
+																		<option>Litter</option>
+																	</select>
+																</td>
+																<td>
+																	<input type="text" class="form-control" placeholder="Price" name="XXXXXXX" />
+																</td>
+																<td>
+																	<input type="text" class="form-control" placeholder="Price" name="XXXXXXX" />
+																</td>
+																<td>
+																	<select class="selectpicker" name="XXXXXXX" title="Discount Type" data-width="fit" required>
+																		<option>Flat Rate (Rs)</option>
+																		<option>Percentage (%)</option>
+																	</select>
+																</td>
+																<td>
+																	<input type="text" class="form-control" placeholder="Discount" name="XXXXXXX" />
+																</td>
+																<td>
+																	<input type="text" class="form-control" placeholder="Discount" name="XXXXXXX" />
+																</td>
+																<td>
+																	<label class="switchS switchSCuStatus">
+																	  <input name="isStatus" value="1" class="switchS-input" checked type="checkbox">
+																	  <span class="switchS-label" data-on="Active" data-off="Inactive"></span> <span class="switchS-handle"></span> 
+																	</label>
+																</td>
+																<td class="text-center">
+																	<button type="button" class="removeMoreTbl"><i class="fas fa-minus-circle"></i></button>
+																</td>
+															</tr>
+															<tr>
+																<td>
+																	<select class="selectpicker" name="XXXXXXX" multiple title="Select Group" data-live-search="true" data-size="5"  data-width="fit" required>
+																		<?=$typeList?>
+																	</select>
+																</td>
+																<td>
+																	<select class="selectpicker" name="XXXXXXX" multiple title="Select Quantity" data-live-search="true" data-size="5"  data-width="fit" required>
+																		<option>KG</option>
+																		<option>Litter</option>
+																	</select>
+																</td>
+																<td>
+																	<input type="text" class="form-control" placeholder="Price" name="XXXXXXX" />
+																</td>
+																<td>
+																	<input type="text" class="form-control" placeholder="Price" name="XXXXXXX" />
+																</td>
+																<td>
+																	<select class="selectpicker" name="XXXXXXX" title="Discount Type" data-width="fit" required>
+																		<option>Flat Rate (Rs)</option>
+																		<option>Percentage (%)</option>
+																	</select>
+																</td>
+																<td>
+																	<input type="text" class="form-control" placeholder="Discount" name="XXXXXXX" />
+																</td>
+																<td>
+																	<input type="text" class="form-control" placeholder="Discount" name="XXXXXXX" />
+																</td>
+																<td>
+																	<label class="switchS switchSCuStatus">
+																	  <input name="isStatus" value="1" class="switchS-input" checked type="checkbox">
+																	  <span class="switchS-label" data-on="Active" data-off="Inactive"></span> <span class="switchS-handle"></span> 
+																	</label>
+																</td>
+																<td class="text-center">
+																	<button type="button" class="removeMoreTbl"><i class="fas fa-minus-circle"></i></button>
+																</td>
+															</tr>
+															<tr>
+																<td colspan="8"></td>
+																<td class="text-center">
+																	<button type="button" class="addMoreTbl"><i class="fa fa-plus-circle"></i></button>
+																</td>
+															</tr>
+														</table>
+													</tr>
+												</table>
+											</div>
 											<div class="text-center">
 												<button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add More</button>
 											</div>
@@ -545,7 +714,7 @@ foreach($relatedProductAry as $data){
 											<div class="manualReviewFomCnt">
 												<div class="col-md-6">
 													<div class="form-group mb0">
-														<label>Review</label>
+														<label class="required">Review</label>
 														<textarea style="min-height:119px" class="form-control reviewText"></textarea>
 													</div>
 												</div>
@@ -553,26 +722,27 @@ foreach($relatedProductAry as $data){
 													<div class="row">
 														<div class="col-md-6">
 															<div class="form-group">
-																<label>Full Name</label>
+																<label class="required">Full Name</label>
 																<input type="text" class="form-control reviewerName" placeholder="Enter Full Name" required/>
 															</div>
 														</div>
 														<div class="col-md-6">
 															<div class="form-group">
-																<label>Email</label>
+																<label class="required">Email</label>
 																<input type="text" class="form-control reviewerEmail" placeholder="Enter Email" required/>
 															</div>
 														</div>
 														<div class="col-md-6">
 															<div class="form-group mb0">
 																<label>Phone</label>
-																<input type="text" class="form-control reviewerPhone" placeholder="Enter Phone" required/>
+																<input type="text" class="form-control phoneOnly reviewerPhone" placeholder="Enter Phone" required/>
 															</div>
 														</div>
 														<div class="col-md-6">
 															<div class="form-group mb0">
-																<label>Rating</label>
-																<div class="rateyo"></div>
+																<label class="required">Rating</label>
+																<input type="hidden" class="reviewerRatingValue" />
+																<div data-rateyo-spacing="10px" class="rateyo reviewerRating"></div>
 															</div>
 														</div>
 													</div>
@@ -584,12 +754,13 @@ foreach($relatedProductAry as $data){
 													<div class="clearfix"></div>
 													<button type="button" class="btn btn-inverse resetBtnRevewi"><i class="fas fa-retweet"></i> Reset</button>
 													<button type="button" class="btn btn-primary manualREvBoxBtn"><i class="fas fa-plus"></i> Manual Review</button>
+													<button type="button" class="btn btn-primary addREvBoxBtn"><i class="fas fa-plus"></i> Add Review</button>
 												</div>
 											</div>
 											<div class="clearfix"></div>
 											<div class="boxRevewcontinerList">
 												<div class="hr dotted hr-double"></div>
-												<table class="table table-striped table-bordered table-hover no-footer">
+												<table class="table reviewListing table-striped table-bordered table-hover no-footer">
 													<thead>
 														<tr>
 															<th>Name</th>
@@ -601,14 +772,6 @@ foreach($relatedProductAry as $data){
 														</tr>
 													</thead>
 													<tbody>
-														<tr>
-															<td>Sankhnad Mishra</td>
-															<td>info@sankhnad.com</td>
-															<td>8800788992</td>
-															<td>4.5</td>
-															<td>ljskdlfkjsdlksdjflksdjf lskj flsakj fsaldkj f</td>
-															<td>Action</td>
-														</tr>
 													</tbody>
 												</table>
 											</div>
@@ -711,7 +874,14 @@ foreach($relatedProductAry as $data){
 				},
 			});
 		});
-		$(".rateyo").rateYo();
+		$(".reviewerRating").rateYo({
+          numStars: 5,
+          precision: 2,
+          minValue: 1,
+          maxValue: 5
+        }).on("rateyo.set", function (e, data) {
+			$('.reviewerRatingValue').val(data.rating);
+        });
 		
 	</script>	
 </body>

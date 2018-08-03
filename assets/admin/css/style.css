@@ -18031,6 +18031,6 @@ table.fixTblShort thead .sorting::after, table.fixTblShort thead .sorting_asc::a
 	top: 25px;
 	right: 0;
 }
-.manualReviewFomCnt, .boxRevewcontinerList, .resetBtnRevewi{
+.manualReviewFomCnt, .boxRevewcontinerList, .resetBtnRevewi, .addREvBoxBtn{
 	display: none;
 }
