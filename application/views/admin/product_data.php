@@ -105,7 +105,7 @@ foreach($relatedProductAry as $data){
 										<a data-toggle="tab" href="#priceTab"><i class="green ace-icon fas fa-dollar-sign bigger-120"></i> Price</a>
 									</li>									
 									<li>
-										<a data-toggle="tab" href="#imageTab"><i class="green ace-icon fas fa-images bigger-120"></i> Image</a>
+										<a data-toggle="tab" href="#galleryTab"><i class="green ace-icon fas fa-images bigger-120"></i> Gallery</a>
 									</li>
 									<li>
 										<a data-toggle="tab" href="#SEOTab"><i class="green ace-icon fab fa-searchengin bigger-120"></i> SEO</a>
@@ -197,14 +197,14 @@ foreach($relatedProductAry as $data){
 														<span class="input-group-addon"> <i class="far fa-calendar-alt bigger-110"></i> </span>
 													</div>
 												</div>
-											</div>
-											<div class="col-md-4">
+											</div>											
+											<div class="col-md-3">
 												<div class="form-group">
 													<label class="required">Product Stock</label>
 													<input type="text" name="quantity" class="form-control" value="<?=$quentity?>" placeholder="Enter Product Quentity" required/>
 												</div>
 											</div>
-											<div class="col-md-4">
+											<div class="col-md-3">
 												<div class="form-group">
 													<label class="required">Subtract Stock</label>
 													<select class="selectpicker" name="stock" data-width="100%">
@@ -213,7 +213,7 @@ foreach($relatedProductAry as $data){
 													</select>
 												</div>
 											</div>
-											<div class="col-md-4">
+											<div class="col-md-3">
 												<div class="form-group">
 													<label class="required">Out Of Stock Status</label>
 													<select class="selectpicker" name="stock" data-width="100%">
@@ -224,8 +224,14 @@ foreach($relatedProductAry as $data){
 													</select>
 												</div>
 											</div>
+											<div class="col-md-3">
+												<div class="form-group">
+													<label>Sort Order</label>
+													<input type="text" name="quantity" class="form-control" value="<?=$quentity?>" placeholder="Enter Sort Order" />
+												</div>
+											</div>
 											<div class="col-md-4">
-												<div class="form-group col-md-4">
+												<div class="form-group">
 													<div class="borderChexBx">
 														<label>Eggless option required?</label>
 														<label class="switchS switchSCuStatus">
@@ -259,10 +265,16 @@ foreach($relatedProductAry as $data){
 											</div>
 											<div class="col-md-4">
 												<div class="form-group">
-													<label>Sort Order</label>
-													<input type="text" name="quantity" class="form-control" value="<?=$quentity?>" placeholder="Enter Sort Order" />
+													<div class="borderChexBx">
+														<label>Tissue packing required?</label>
+														<label class="switchS switchSCuStatus">
+														  <input name="isStatus" value="1" class="switchS-input" checked type="checkbox">
+														  <span class="switchS-label" data-on="Yes" data-off="No"></span> <span class="switchS-handle"></span> 
+														</label>
+													</div>
 												</div>
 											</div>
+											
 											<div class="clearfix"></div>
 										</div>
 										<div id="priceTab" class="tab-pane ">
@@ -275,6 +287,63 @@ foreach($relatedProductAry as $data){
 													<th>Discount</th>
 													<th>Reward</th>
 													<th>Action</th>
+												</tr>
+												<tr>
+													<td>
+														<select class="selectpicker" name="XXXXXXX" title="Quantity Type" data-width="100%">
+															<option>Weight</option>
+															<option>Quantity</option>
+															<option>Size</option>
+														</select>
+													</td>
+													<td>
+														<select class="selectpicker" data-live-search="true" name="XXXXXXX" title="Quantity Type" data-width="100%">
+															<option>250g</option>
+															<option>500g</option>
+															<option>750g</option>
+															<option>1kg</option>
+															<option>1.5kg</option>
+															<option>2kg</option>
+															<option>2.5kg</option>
+															<option>3kg</option>
+															<option>3.5kg</option>
+															<option>4kg</option>
+															<option>5kg</option>
+															<option>6kg</option>
+															<option>7kg</option>
+															<option>8kg</option>
+															<option>9kg</option>
+															<option>10kg</option>
+															<option>Quantity</option>
+															<option>1</option>
+															<option>2</option>
+															<option>3</option>
+															<option>4</option>
+															<option>5</option>
+															<option>Size</option>
+															<option>Small</option>
+															<option>Medium</option>
+															<option>Large</option>
+														</select>
+													</td>
+													<td>
+														<input type="text" class="form-control" placeholder="Product Price" name="default_reward_point" />
+													</td>
+													<td>
+														<select class="selectpicker" name="XXXXXXX" title="Discount Type" data-width="100%">
+															<option>Flat Rate (Rs.)</option>
+															<option>Percentage (%)</option>
+														</select>
+													</td>
+													<td>
+														<input type="text" class="form-control" placeholder="Discounted Price" name="default_reward_point" />
+													</td>
+													<td>
+														<input type="text" class="form-control" placeholder="Quantity" name="default_reward_point" />
+													</td>
+													<td>
+														<button type="button" class="removeMoreTbl"><i class="fas fa-minus-circle"></i></button>
+													</td>
 												</tr>
 												<tr>
 													<td>
@@ -307,7 +376,19 @@ foreach($relatedProductAry as $data){
 													</td>
 												</tr>
 												<tr>
-													<td colspan="6">
+													<th class="text-right">
+														Delivery Option
+													</th>
+													<td>
+														<select class="selectpicker" name="XXXXXXX" title="Delivery Option" data-width="100%" multiple>
+															<option>Morning Delivery</option>
+															<option>Standard Delivery</option>
+															<option>Fixed Time</option>
+															<option>Mid-night</option>
+															<option>Special Ocation</option>
+														</select>
+													</td>
+													<td colspan="4">
 													</td>
 													<td>
 														<button type="button" class="addMoreTbl"><i class="fa fa-plus-circle"></i></button>
@@ -319,18 +400,29 @@ foreach($relatedProductAry as $data){
 												<div data-toggle="tooltip" title="Remove Panel" class="removePriceGropBox"><i class="fas fa-times-circle"></i></div>
 												<table class="table table-bordered no-footer">
 													<tr>
-														<th>State</th>
+														<th class="text-right">State</th>
 														<td>
 															<select class="selectpicker" name="XXXXXXX" multiple title="Select State" data-live-search="true" data-size="5"  data-width="100%" required>
 															<?=$typeList?>
 															</select>
 														</td>
-														<th>City</th>
+														<th class="text-right">City</th>
 														<td>
 															<select class="selectpicker" name="XXXXXXX" multiple title="Select City" data-live-search="true" data-size="5"  data-width="100%" required>
 															<?=$typeList?>
 															</select>
 														</td>
+														<th class="text-right">Delivery Option</th>
+														<td>
+															<select class="selectpicker" name="XXXXXXX" title="Delivery Option" data-width="100%" multiple>
+																<option>Morning Delivery</option>
+																<option>Standard Delivery</option>
+																<option>Fixed Time</option>
+																<option>Mid-night</option>
+																<option>Special Ocation</option>
+															</select>
+														</td>
+														
 													</tr>
 													<tr>
 														<table class="table table-bordered no-footer mb0">
@@ -401,7 +493,7 @@ foreach($relatedProductAry as $data){
 											</div>
 											<div class="clearfix"></div>
 										</div>
-										<div id="imageTab" class="tab-pane ">											
+										<div id="galleryTab" class="tab-pane ">											
 											<div class="col-sm-3">
 												<div class="form-group">
 													<label> &nbsp;</label>
