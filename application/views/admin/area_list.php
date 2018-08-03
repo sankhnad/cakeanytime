@@ -77,8 +77,8 @@
 		<div id="locationAddEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
 			<div class="modal-content">
-			  <form id="editNewPin">
-				<input type="hidden" name="pin" />
+			  <form id="editNewArea">
+				<input type="hidden" name="aid" />
 				<div class="modal-header">
 				  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 				  <h4 class="modal-title"><span class="acnLbl"></span> Area</h4>
@@ -86,7 +86,7 @@
 				<div class="modal-body">
 				  <div class="form-group">
 					<label>Pin Code List</label>
-					<select class="selectpicker" data-width="100%" name="sid" title="Select Pin Code" data-live-search="true" required>
+					<select class="selectpicker" data-width="100%" name="pin" title="Select Pin Code" data-live-search="true" required>
                        <?php $pinList = ''; 
 					   		foreach($pinAry as $pinData){
 							$pinList .= '<option value="'.encode($pinData->pin).'">'.$pinData->pin.'</option>';
@@ -95,10 +95,7 @@
 						?>
 					</select>
 				  </div>
-				  <div class="form-group">
-					<label>Area Name</label>
-					<input type="text" name="name" class="form-control" placeholder="Enter Area Name" required>
-				  </div>
+				  <div class="multiAddLocalCon"></div>
 				</div>
 				<div class="modal-footer">
 				  <button type="button" class="btn btn-inverse" data-dismiss="modal">Cancel</button>

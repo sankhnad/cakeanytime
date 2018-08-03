@@ -35,11 +35,12 @@ class Manual_model extends CI_Model {
 			$this->db->from('location_state AS a');
 			$this->db->join('location_city AS b', 'a.sid = b.sid', 'LEFT');
 		}
-		if($type == 'pin' || $type == 'area'){
+		if($type == 'pin'){
 			$this->db->join('location_pin AS c', 'b.cid = c.cid', 'LEFT');
 		}
 		if($type == 'area'){
-			$this->db->join('location_area AS d', 'd.pin = d.pin', 'LEFT');
+			$this->db->from('location_area AS a');
+			$this->db->join('location_pin AS b', 'a.pin = b.pin', 'LEFT');
 		}
 		$this->db->where($where);
 		$query = $this->db->get();
