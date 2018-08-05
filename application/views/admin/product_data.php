@@ -732,17 +732,29 @@ foreach($relatedProductAry as $data){
 																<input type="text" class="form-control reviewerEmail" placeholder="Enter Email" required/>
 															</div>
 														</div>
-														<div class="col-md-6">
+														<div class="col-md-4">
 															<div class="form-group mb0">
 																<label>Phone</label>
 																<input type="text" class="form-control phoneOnly reviewerPhone" placeholder="Enter Phone" required/>
 															</div>
 														</div>
-														<div class="col-md-6">
+														<div class="col-md-4">
+															<div class="form-group mb0">
+																<label>Review Date</label>
+																<div class="input-group date reviewDateView" data-date-format="dd/mm/yyyy - HH:ii p" data-link-field="dtp_input1">
+																  <input class="form-control" size="16" type="text" value="" readonly>			
+																  <span class="input-group-addon">
+																	  <span class="glyphicon glyphicon-th"></span>
+																  </span>
+																</div>
+																<input type="hidden" id="dtp_input1" value="" />
+															</div>
+														</div>
+														<div class="col-md-4">
 															<div class="form-group mb0">
 																<label class="required">Rating</label>
 																<input type="hidden" class="reviewerRatingValue" />
-																<div data-rateyo-spacing="10px" class="rateyo reviewerRating"></div>
+																<div class="rateyo reviewerRating"></div>
 															</div>
 														</div>
 													</div>
@@ -766,6 +778,7 @@ foreach($relatedProductAry as $data){
 															<th>Name</th>
 															<th>Email</th>
 															<th>Phone</th>
+															<th>Date</th>
 															<th>Rating</th>
 															<th>Review</th>
 															<th>Action</th>
@@ -823,6 +836,16 @@ foreach($relatedProductAry as $data){
 			singleDatePicker: true,
 			showDropdowns: true,
 		} );
+		
+		$('.reviewDateView').datetimepicker({
+			weekStart: 1,
+			todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 2,
+			forceParse: 0,
+			showMeridian: 1
+		});
 		
 		var setting = {
 			check: {

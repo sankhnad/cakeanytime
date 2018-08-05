@@ -3293,8 +3293,9 @@ $(document).on("submit", "#editNewProduct", function (e) {
 	$.each(nodes, function( index, value ){
     	notObj.push(value.id);
 	});
-	formObj.append("category", notObj)
+	formObj.append("category", notObj);
 	
+	//formObj.append('gallery', $('.rrr').prop('files')[0]);
 	$.ajax({
 		url: base_url + 'admin/products/storeProduct',
 		dataType: 'json',

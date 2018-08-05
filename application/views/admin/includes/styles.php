@@ -3,13 +3,16 @@
 	<link rel="shortcut icon" href="<?=$iURL_adminAssts?>images/favicon.ico" type="image/x-icon">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
 
-	<link rel="stylesheet" href="<?=$iURL_adminAssts?>css/bootstrap-datepicker3.min.css">
-	<link rel="stylesheet" href="<?=$iURL_adminAssts?>js/summernote/summernote.css" />
-	<link rel="stylesheet" href="<?=$iURL_adminAssts?>css/daterangepicker.min.css" />
-	<link rel="stylesheet" href="<?=$iURL_adminAssts?>css/bootstrap-tagsinput.css">
 	<!-- bootstrap & fontawesome -->
 	<link rel="stylesheet" href="<?=$iURL_adminAssts?>css/bootstrap.min.css"/>
 	<link rel="stylesheet" href="<?=$iURL_adminAssts?>fontawesome-free-5.2.0/css/all.css"/>
+
+	<link rel="stylesheet" href="<?=$iURL_adminAssts?>css/bootstrap-datepicker3.min.css">
+	<link rel="stylesheet" href="<?=$iURL_adminAssts?>js/summernote/summernote.css" />
+	<link rel="stylesheet" href="<?=$iURL_adminAssts?>css/daterangepicker.min.css" />
+	<link rel="stylesheet" href="<?=$iURL_adminAssts?>css/bootstrap-datetimepicker.min.css" />
+	<link rel="stylesheet" href="<?=$iURL_adminAssts?>css/bootstrap-tagsinput.css">
+	
 
 	<link rel="stylesheet" href="<?=$iURL_adminAssts?>css/datatables.min.css" />
 	
