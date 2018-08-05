@@ -68,6 +68,10 @@
 							<a href="<?=admin_url()?>type"><i class="menu-icon fa fa-caret-right"></i>Product Type</a>
 							<b class="arrow"></b>
 						</li>
+						<li class="<?=$activeSubMenu == 'delivery' ? 'active':''?>">
+							<a href="<?=admin_url()?>delivery"><i class="menu-icon fa fa-caret-right"></i>Product Delivery Option</a>
+							<b class="arrow"></b>
+						</li>
 						<li class="<?=$activeSubMenu == 'category' ? 'active':''?>">
 							<a href="<?=admin_url()?>category"><i class="menu-icon fa fa-caret-right"></i>Product Category</a>
 							<b class="arrow"></b>

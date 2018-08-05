@@ -77,6 +77,7 @@ function addRemoveLocaInput(selfObj, type, location){
 	}else if(location == 'area'){
 		var lblName = 'Area Name';
 	}
+	
 	var globalInputBox = '<div class="row"><div class="form-group col-md-11">'+
 			'<label>'+lblName+'</label>'+
 			'<input type="text" name="name[]" class="form-control" placeholder="Enter '+lblName+'" required>'+
@@ -582,6 +583,10 @@ function editLocation(selfObj, id, type) {
 				$('input[name="name[]"]').val(data.area);
 
 			}else if (type == 'pin') {
+				$('select[name="cid"]').val(data.sid);
+				$('input[name="pid"]').val(data.pid);
+				$('input[name="name[]"]').val(data.pin);
+			}else if (type == 'delivery') {
 				$('select[name="cid"]').val(data.sid);
 				$('input[name="pid"]').val(data.pid);
 				$('input[name="name[]"]').val(data.pin);
@@ -3394,3 +3399,117 @@ $(document).on("submit", "#editNewArea", function (e) {
 	});
 });
 
+$(document).on("submit", "#editNewDelivery", function (e) {
+	e.preventDefault();
+	var id = $('input[name="did"]').val();
+	if (id != '') {
+		var msg = 'updated';
+	} else {
+		var msg = 'added';
+	}
+	$.ajax({
+		url: admin_url + 'delivery/addEditDelivery',
+		dataType: 'json',
+		type: 'POST',
+		data: new FormData(this),
+		processData: false,
+		contentType: false,
+		beforeSend: function () {
+				showLoader();
+		},
+		success: function (data) {
+			timerAlert('Successfull!', 'Successfully ' + msg, 'reload');
+		},
+		error: function () {
+			csrfError();
+		}
+	});
+});
+
+function editDelivery(selfObj, id, type) {
+	$('.multiAddLocalCon').html('');
+    if(!id){
+		$('.acnLbl').html('Add New');
+
+		$('input[name="name"], select[name="tid[]"]').val('');
+		$('.cityLisingModel').hide();
+		$('.cityLisingModel select').html('');
+		$('#locationAddEdit').modal();
+		$('div [class*=colBoxArPIN]').not('.colBoxArPIN1').remove();
+		$('.selectpicker').selectpicker('refresh');
+		return false;
+	}	
+	var dataString = {
+		id: id,
+		type: type
+	};
+
+	$.ajax({
+		url: admin_url + 'delivery/getData',
+		dataType: 'json',
+		type: "POST",
+		data: dataString,
+		beforeSend: function () {
+			showLoader();
+		},
+		success: function (data) {
+			$('input[name="did"]').val(data.did);
+			$('select[name="tid[]"]').val(data.slotId);
+			$('input[name="name"]').val(data.optName);
+
+			$('.acnLbl').html('Update');
+			$('.custmBPls').attr('disabled',true);
+			$('#locationAddEdit').modal();
+		},
+		error: function () {
+			csrfError();
+		},
+	});
+}
+
+
+
+function deleteDelievry(selfObj, id, type) {
+	swal({
+		title: "Are you sure!!",
+		text: "Do you want to you want to delete this record?",
+		type: "warning",
+		showCancelButton: true,
+		confirmButtonColor: "#DD6B55",
+		confirmButtonText: "Yes",
+		cancelButtonText: "No"
+	}).then(function () {
+		var dataString = {
+			id: id,
+			type: type
+		};
+		$.ajax({
+			url: admin_url + 'location/deleteData',
+			dataType: 'json',
+			type: "POST",
+			data: dataString,
+			beforeSend: function () {
+				showLoader();
+			},
+			success: function (data) {
+				if (data.status == 'child') {
+					if (type == 'state') {
+						var msg = 'You cannot delete this state until the city of this state get deleted. So, please delete all cities of this state first';
+					} else if (type == 'city') {
+						var msg = 'You cannot delete this city until the area of this city get deleted. So, please delete all areas of this city first';
+					} else if (type == 'area') {
+
+					}
+					swal("Oops!!", msg, "error");
+				} else if (data.status == 'success') {
+					timerAlert('Successful!!', 'Record has been deleted Successfully');
+					$(selfObj).closest('tr').remove();
+				}
+			},
+			error: function () {
+				csrfError();
+			},
+		});
+
+	});
+}
